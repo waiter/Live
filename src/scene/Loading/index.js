@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import Constant from '../../constant';
 import DataHelper from '../../data/helper';
+import ImageHelper from '../../data/image';
 import { connect } from 'react-redux';
 import Events from '../../data/events';
 import ReduxActions from '../../redux/actions';
@@ -25,26 +26,25 @@ class Loading extends Component {
     super(props);
   }
 
+  async init(dispatch) {
+    dispatch(ReduxActions.startLoading());
+    try {
+      const data = await DataHelper.getAllDataAsync();
+      console.log(data);
+      const need = Events.initData(data);
+      await DataHelper.saveDatasAsync(need);
+      await ImageHelper._init();
+      dispatch(ReduxActions.eventInitDatas(Events.getCurrentDatas()));
+      dispatch(ReduxActions.startLoadingEnd());
+      Actions.home();
+    } catch (err) {
+      dispatch(ReduxActions.startLoadingEnd({text: err.toString()}));
+    }
+  }
+
   componentWillMount() {
     const dispatch = this.props.dispatch;
-    dispatch(ReduxActions.startLoading());
-    // DataHelper.clearData()(_ => {});
-    DataHelper.getAllData()((err, data) => {
-      if (!err) {
-        console.log(data);
-        // data.dataIsOpened = 0;
-        const need = Events.initData(data);
-        console.log(need);
-        DataHelper.saveDatas(need)((e,d) => {
-          dispatch(ReduxActions.startLoadingEnd(e));
-          dispatch(ReduxActions.eventInitDatas(Events.getCurrentDatas()));
-          Actions.home();
-          // Actions.refresh({key: 'drawer'});
-        });
-      } else {
-        dispatch(ReduxActions.startLoadingEnd(err));
-      }
-    });
+    this.init(dispatch);
   }
 
   render() {

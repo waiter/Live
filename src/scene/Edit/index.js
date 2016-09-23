@@ -17,6 +17,7 @@ import DataHelper from '../../data/helper';
 import Events from '../../data/events';
 import ReduxActions from '../../redux/actions';
 import { connect } from 'react-redux';
+import ImageHelper from '../../data/image';
 
 const titleDefault = '十年之前';
 const bindThing = [
@@ -72,8 +73,9 @@ class Edit extends Component {
 
   componentWillMount () {
     Actions.refresh({
-      rightTitle: 'Done'
-      , onRight: this.onDone
+      rightButtonImage: ImageHelper.checkmark,
+      backButtonImage: ImageHelper.arrowBack,
+      onRight: this.onDone
     })
   }
 

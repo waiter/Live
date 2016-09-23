@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import DataHelper from '../../data/helper';
 import Events from '../../data/events';
 import ReduxActions from '../../redux/actions';
+import ImageHelper from '../../data/image';
 
 const bindThing = [
   'renderItem',
@@ -45,6 +46,14 @@ class Home extends Component {
         dataSource: this.makeEventArray(nextProps.events)
       });
     // }
+  }
+
+  componentWillMount () {
+    console.log(ImageHelper.user);
+    Actions.refresh({
+      rightButtonImage: ImageHelper.add,
+      onRight: () => Actions.add()
+    })
   }
 
   makeEventArray(events) {

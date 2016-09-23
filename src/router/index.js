@@ -1,4 +1,5 @@
 import React from 'react';
+import {Image, StyleSheet, StatusBar} from 'react-native';
 import {Scene, Router, Reducer, ActionConst, Actions} from 'react-native-router-flux';
 import Home from '../scene/Home';
 import Loading from '../scene/Loading';
@@ -7,6 +8,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from '../redux/reducers';
 import Drawer from '../components/Drawer';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Constant from '../constant';
 
 const getSceneStyle = function (props, computedProps) {
   const style = {
@@ -14,7 +17,7 @@ const getSceneStyle = function (props, computedProps) {
     backgroundColor: '#fff'
   };
   if (computedProps.isActive) {
-    style.marginTop = computedProps.hideNavBar ? 0 : 60;
+    style.marginTop = computedProps.hideNavBar ? 0 : Constant.size.topBar;
   }
   return style;
 };
@@ -25,25 +28,28 @@ const store = compose(
 )(createStore)(reducers);
 
 class RouterComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    StatusBar.setBarStyle('light-content', 'fade');
+  }
+
   render() {
     return (
       <Provider store={store}>
-        <Router getSceneStyle={getSceneStyle}>
+        <Router getSceneStyle={getSceneStyle}
+          navigationBarStyle={styles.navigationBarStyle}
+          titleStyle={styles.titleStyle}
+          rightButtonIconStyle={styles.rightButtonIconStyle}
+          leftButtonIconStyle={styles.rightButtonIconStyle}
+        >
           <Scene key="root">
             <Scene key="loading" component={Loading} hideNavBar title="Loading" initial={true}/>
-
-              <Scene key="home" component={Home} hideNavBar={false} title="Login"
-                type={ActionConst.REPLACE}
-                rightTitle="add"
-                onRight={_ => Actions.add()}
-                leftTitle="menu"
-                onLeft={_ => Actions.refresh({key: 'drawer', open: value => !value })}
-              />
-            
+            <Scene key="home" component={Home} hideNavBar={false}
+              title="Days"
+              type={ActionConst.REPLACE}
+            />
             <Scene key="add" component={Edit} hideNavBar={false} title="Add"
-              backTitle="cancel"
-              rightTitle="done"
-              onRight={p => console.log(p.component)}
+              
             />
             <Scene key="edit" component={Edit} hideNavBar={false} title="Edit"/>
           </Scene>
@@ -52,5 +58,19 @@ class RouterComponent extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  navigationBarStyle: {
+    backgroundColor: Constant.colors.topBar
+  },
+  titleStyle: {
+    color: '#fff',
+    fontWeight: 'bold'
+  },
+  rightButtonIconStyle: {
+    width: Constant.size.topBarImg,
+    height: Constant.size.topBarImg
+  }
+});
 
 export default RouterComponent;
