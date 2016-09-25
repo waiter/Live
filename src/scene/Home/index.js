@@ -17,6 +17,8 @@ import DataHelper from '../../data/helper';
 import Events from '../../data/events';
 import ReduxActions from '../../redux/actions';
 import ImageHelper from '../../data/image';
+import BindComponent from '../../components/BindComponent';
+import Item from '../../components/Item';
 
 const bindThing = [
   'renderItem',
@@ -26,17 +28,14 @@ const bindThing = [
   'onEditItem'
 ];
 
-class Home extends Component {
+class Home extends BindComponent {
   constructor(props) {
-    super(props);
+    super(props, bindThing);
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: this.makeEventArray(props.events),
       showType: 1,
     };
-    bindThing.forEach(it => {
-      this[it] = this[it].bind(this);
-    });
     console.log(this.state.dataSource);
   }
 
@@ -52,7 +51,9 @@ class Home extends Component {
     console.log(ImageHelper.user);
     Actions.refresh({
       rightButtonImage: ImageHelper.add,
-      onRight: () => Actions.add()
+      onRight: () => Actions.add(),
+      leftButtonImage: ImageHelper.swap,
+      onLeft: this.changeShowType
     })
   }
 
@@ -67,6 +68,9 @@ class Home extends Component {
   }
 
   renderItem(rowData) {
+    return (
+      <Item rowData={rowData} showType={this.state.showType} onPress={_ => alert('xxx')}/>
+    );
     let word = ['已过', rowData.diffDays, '天'];
     if (this.state.showType === 2) {
       word[0] = `到${rowData.baseYear}周年还需要`;
@@ -170,7 +174,7 @@ const styles = StyleSheet.create({
 //     justifyContent: 'center',
 //     alignItems: 'center',
 //     paddingTop: 80,
-    backgroundColor: Constant.colors.background,
+    // backgroundColor: Constant.colors.topBar,
   },
   item: {
     flex: 1,

@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
+import BindComponent from '../../components/BindComponent';
 import {
   StyleSheet,
   View,
   Text,
   TouchableHighlight,
-  ScrollView
+  ScrollView,
+  Image,
+  TextInput
 } from 'react-native';
 import { Form,
   Separator,InputField, LinkField,
@@ -18,6 +21,7 @@ import Events from '../../data/events';
 import ReduxActions from '../../redux/actions';
 import { connect } from 'react-redux';
 import ImageHelper from '../../data/image';
+import Constant from '../../constant';
 
 const titleDefault = '十年之前';
 const bindThing = [
@@ -26,18 +30,15 @@ const bindThing = [
   'onDone'
 ];
 
-class Edit extends Component {
+class Edit extends BindComponent {
   constructor(props) {
-    super(props);
+    super(props, bindThing);
     const rowData = this.props.rowData || {};
     this.state = {
       rowKey: this.props.rowKey || '',
       title: rowData.title || titleDefault,
       date: rowData.time || moment().format('YYYY-MM-DD')
     };
-    bindThing.forEach(it => {
-      this[it] = this[it].bind(this);
-    });
   }
 
   onTitleChange(v) {
@@ -88,11 +89,44 @@ class Edit extends Component {
     alert('yyy');
   }
 
+  renderIcons() {
+    const views = [];
+    for(let i = 0 ; i < 2; i++){
+      const items = [];
+      for(let j = 0; j < 4; j++) {
+        items.push(
+          <View key={j} style={j==0?styles.iconSelFirst:styles.iconSel}>
+            <Image source={ImageHelper.alarm} style={styles.icon}/>
+          </View>
+        );
+      }
+      views.push(
+        <View key={i} style={styles.line1}>
+          {items}
+        </View>
+      );
+    }
+    return views;
+  }
+
   render() {
     return (
       <ScrollView
          keyboardShouldPersistTaps={true}
       >
+        <View style={styles.line1} >
+          <View style={styles.iconV} >
+            <Image source={ImageHelper.alarm} style={styles.icon}/>
+          </View>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={(text) => this.setState({text})}
+            value={this.state.text}
+            autoFocus
+            placeholder="<输入标题>"
+          />
+        </View>
+        {this.renderIcons()}
         <Form
           ref="form"
         >
@@ -115,6 +149,57 @@ class Edit extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  line1: {
+    flex: 1,
+    flexDirection: 'row',
+    height: Constant.size.editHeight,
+    borderBottomWidth: 1,
+    borderBottomColor: Constant.colors.line,
+  },
+  iconV: {
+    width: Constant.size.editHeight,
+    backgroundColor: Constant.colors.item,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRightWidth: 1,
+    borderRightColor: Constant.colors.line,
+  },
+  icon: {
+    width: Constant.size.topBarImg,
+    height: Constant.size.topBarImg
+  },
+  textV: {
+    flex: 1
+  },
+  textInput: {
+    flex: 1,
+    backgroundColor: Constant.colors.item,
+    textAlign: 'right',
+    paddingRight: 8,
+  },
+  iconSelFirst: {
+    flex: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: Constant.colors.line,
+    backgroundColor: Constant.colors.item,
+    height: Constant.size.editHeight,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconSel: {
+    flex: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: Constant.colors.line,
+    borderLeftWidth: 1,
+    borderLeftColor: Constant.colors.line,
+    backgroundColor: Constant.colors.item,
+    height: Constant.size.editHeight,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
+});
 
 export default connect(state => state)(Edit);
 

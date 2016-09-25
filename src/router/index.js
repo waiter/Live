@@ -7,14 +7,13 @@ import Edit from '../scene/Edit';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from '../redux/reducers';
-import Drawer from '../components/Drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Constant from '../constant';
 
 const getSceneStyle = function (props, computedProps) {
   const style = {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: Constant.colors.background
   };
   if (computedProps.isActive) {
     style.marginTop = computedProps.hideNavBar ? 0 : Constant.size.topBar;
@@ -41,6 +40,7 @@ class RouterComponent extends React.Component {
           titleStyle={styles.titleStyle}
           rightButtonIconStyle={styles.rightButtonIconStyle}
           leftButtonIconStyle={styles.rightButtonIconStyle}
+          style={{backgroundColor: Constant.colors.background}}
         >
           <Scene key="root">
             <Scene key="loading" component={Loading} hideNavBar title="Loading" initial={true}/>
@@ -49,7 +49,7 @@ class RouterComponent extends React.Component {
               type={ActionConst.REPLACE}
             />
             <Scene key="add" component={Edit} hideNavBar={false} title="Add"
-              
+
             />
             <Scene key="edit" component={Edit} hideNavBar={false} title="Edit"/>
           </Scene>
@@ -61,7 +61,9 @@ class RouterComponent extends React.Component {
 
 const styles = StyleSheet.create({
   navigationBarStyle: {
-    backgroundColor: Constant.colors.topBar
+    backgroundColor: Constant.colors.topBar,
+    borderBottomWidth: 0,
+    borderBottomColor: Constant.colors.topBar
   },
   titleStyle: {
     color: '#fff',
