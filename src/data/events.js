@@ -112,7 +112,8 @@ const datas = {
     const re = {
       [Keys.DATA_EVENT_CONTENT_PRE + key]: JSON.stringify({
         title: obj.title,
-        time: obj.time
+        time: obj.time,
+        iconId: obj.iconId
       })
     };
     return re;

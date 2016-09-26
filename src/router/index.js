@@ -40,7 +40,6 @@ class RouterComponent extends React.Component {
           titleStyle={styles.titleStyle}
           rightButtonIconStyle={styles.rightButtonIconStyle}
           leftButtonIconStyle={styles.rightButtonIconStyle}
-          style={{backgroundColor: Constant.colors.background}}
         >
           <Scene key="root">
             <Scene key="loading" component={Loading} hideNavBar title="Loading" initial={true}/>
@@ -48,9 +47,7 @@ class RouterComponent extends React.Component {
               title="Days"
               type={ActionConst.REPLACE}
             />
-            <Scene key="add" component={Edit} hideNavBar={false} title="Add"
-
-            />
+            <Scene key="add" component={Edit} hideNavBar={false} title="Add"/>
             <Scene key="edit" component={Edit} hideNavBar={false} title="Edit"/>
           </Scene>
         </Router>
@@ -63,7 +60,7 @@ const styles = StyleSheet.create({
   navigationBarStyle: {
     backgroundColor: Constant.colors.topBar,
     borderBottomWidth: 0,
-    borderBottomColor: Constant.colors.topBar
+    borderBottomColor: Constant.colors.topBar,
   },
   titleStyle: {
     color: '#fff',
@@ -71,7 +68,9 @@ const styles = StyleSheet.create({
   },
   rightButtonIconStyle: {
     width: Constant.size.topBarImg,
-    height: Constant.size.topBarImg
+    height: Constant.size.topBarImg,
+    borderWidth: 1,
+    borderColor: '#fff',
   }
 });
 

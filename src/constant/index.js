@@ -25,8 +25,22 @@ export default {
   },
   size: {
     topBar: 64,
-    topBarImg: 22,
+    topBarImg: 30,
     itemHeight: 60,
     editHeight: 50,
-  }
+  },
+  icons: [
+    "favorite",
+    "email",
+    "cake",
+    "person",
+    "home",
+    "fitness",
+    "toys",
+    "florist",
+    "notifications",
+    "audiotrack",
+    "camera",
+    "breakfast"
+  ],
 };

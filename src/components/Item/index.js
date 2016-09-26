@@ -67,10 +67,7 @@ const styles = StyleSheet.create({
 
 export default class Item extends BindComponent {
   constructor(props) {
-    super(props, ['changeShowType', 'checkData']);
-    this.state = {
-      showType: 2,
-    };
+    super(props, ['checkData']);
     const len = Constant.colors.kitList.length;
     const cId = parseInt(len * Math.random(), 10);
     this.color = Constant.colors.kitList[cId];
@@ -82,12 +79,6 @@ export default class Item extends BindComponent {
       JSON.stringify(newProps.rowData) != JSON.stringify(this.props.rowData)) {
       this.checkData(newProps.rowData, newProps.showType);
     }
-  }
-
-  changeShowType() {
-    this.setState({
-      showType: this.state.showType % 3 + 1
-    })
   }
 
   checkData(rowData, showType) {
@@ -108,7 +99,7 @@ export default class Item extends BindComponent {
       <View style={[styles.item, {borderLeftColor: this.color}]}>
         <View style={styles.contentView}>
           <View style={styles.iconView}>
-            <Image style={styles.icon} source={ImageHelper.alarm}/>
+            <Image style={styles.icon} source={ImageHelper[Constant.icons[rowData.iconId || 0]]}/>
           </View>
           <View style={styles.itemLeft}>
             <Text numberOfLines={1} style={styles.itemLeftText}>{rowData.title}</Text>

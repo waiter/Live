@@ -9,11 +9,6 @@ import {
   Image,
   TextInput
 } from 'react-native';
-import { Form,
-  Separator,InputField, LinkField,
-  SwitchField, PickerField,DatePickerField,TimePickerField
-} from 'react-native-form-generator';
-import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 import DataHelper from '../../data/helper';
@@ -22,11 +17,12 @@ import ReduxActions from '../../redux/actions';
 import { connect } from 'react-redux';
 import ImageHelper from '../../data/image';
 import Constant from '../../constant';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import DatePicker from 'rmc-date-picker';
+import Popup from 'rmc-date-picker/lib/Popup';
 
 const titleDefault = '十年之前';
 const bindThing = [
-  'onTitleChange',
-  'onDateChange',
   'onDone'
 ];
 
@@ -37,28 +33,21 @@ class Edit extends BindComponent {
     this.state = {
       rowKey: this.props.rowKey || '',
       title: rowData.title || titleDefault,
-      date: rowData.time || moment().format('YYYY-MM-DD')
+      date: rowData.time || moment().format('YYYY-MM-DD'),
+      iconId: rowData.iconId || 0,
+      dateShow: false,
+      monDate: rowData.time ? moment(rowData.time, 'YYYY-MM-DD') : moment(),
+      text: rowData.title || titleDefault,
     };
-  }
-
-  onTitleChange(v) {
-    console.log(v);
-    this.setState({
-      title: v.length > 0 ? v : titleDefault
-    });
-  }
-
-  onDateChange(d) {
-    console.log(d);
-    this.setState({
-      date: moment(d).format('YYYY-MM-DD')
-    });
+    this.minDate = moment('1900-01-01', 'YYYY-MM-DD');
+    this.maxDate = moment();
   }
 
   onDone() {
     const nowData = {
-      title: this.state.title || titleDefault,
-      time: this.state.date || moment().format('YYYY-MM-DD')
+      title: this.state.text || titleDefault,
+      time: this.state.monDate.format('YYYY-MM-DD'),
+      iconId: this.state.iconId
     }
     const need = this.state.rowKey.length > 0 ?
       Events.editData(this.state.rowKey, nowData) :
@@ -69,35 +58,32 @@ class Edit extends BindComponent {
       dispatch(ReduxActions.eventRestData(Events.getCurrentDatas()));
       Actions.pop();
     });
-    console.log('dddddd');
   }
 
   componentWillMount () {
     Actions.refresh({
-      rightButtonImage: ImageHelper.checkmark,
+      rightButtonImage: ImageHelper.done,
       backButtonImage: ImageHelper.arrowBack,
-      onRight: this.onDone
+      onRight: this.onDone,
     })
-  }
-
-  test(ggg) {
-    alert('nnn');
-    alert(ggg);
-  }
-
-  onPress() {
-    alert('yyy');
   }
 
   renderIcons() {
     const views = [];
-    for(let i = 0 ; i < 2; i++){
+    for(let i = 0 ; i < 3; i++){
       const items = [];
       for(let j = 0; j < 4; j++) {
+        const kid = i*4+j;
+        const sty = [j==0?styles.iconSelFirst:styles.iconSel];
+        if (kid == this.state.iconId) {
+          sty.push(styles.iconHighlight);
+        }
         items.push(
-          <View key={j} style={j==0?styles.iconSelFirst:styles.iconSel}>
-            <Image source={ImageHelper.alarm} style={styles.icon}/>
-          </View>
+          <TouchableHighlight
+            underlayColor={Constant.colors.line}
+            key={j} style={sty} onPress={_ => this.setState({iconId: kid})}>
+            <Image source={ImageHelper[Constant.icons[kid]]} style={styles.icon}/>
+          </TouchableHighlight>
         );
       }
       views.push(
@@ -111,12 +97,10 @@ class Edit extends BindComponent {
 
   render() {
     return (
-      <ScrollView
-         keyboardShouldPersistTaps={true}
-      >
+      <ScrollView keyboardShouldPersistTaps={true} >
         <View style={styles.line1} >
           <View style={styles.iconV} >
-            <Image source={ImageHelper.alarm} style={styles.icon}/>
+            <Image source={ImageHelper[Constant.icons[this.state.iconId]]} style={styles.icon}/>
           </View>
           <TextInput
             style={styles.textInput}
@@ -124,27 +108,23 @@ class Edit extends BindComponent {
             value={this.state.text}
             autoFocus
             placeholder="<输入标题>"
+            defaultValue={titleDefault}
           />
         </View>
         {this.renderIcons()}
-        <Form
-          ref="form"
-        >
-          <InputField ref='title' label="title" placeholder='title'
-            value={this.state.title}
-            onValueChange={this.onTitleChange}
+        <View style={styles.dateV}>
+          <Text style={styles.dateText}>日期</Text>
+          <Text style={styles.dateText}>{this.state.monDate.format('YYYY-MM-DD')}</Text>
+        </View>
+        <View style={styles.datePicker}>
+          <DatePicker
+            defaultDate={this.state.monDate}
+            mode="date"
+            minDate={this.minDate}
+            maxDate={this.maxDate}
+            onDateChange={v => this.setState({monDate: v})}
           />
-          <DatePickerField ref='date'
-          mode="date"
-          minimumDate={new Date('1/1/1900')}
-          maximumDate={new Date()}
-
-          prettyPrint={true}
-          date={moment(this.state.date, 'YYYY-MM-DD').toDate()}
-          dateTimeFormat={ v => moment(v).format('YYYY-MM-DD')}
-          onValueChange={this.onDateChange}
-          placeholder='日期'/>
-        </Form>
+        </View>
       </ScrollView>
     );
   }
@@ -157,6 +137,21 @@ const styles = StyleSheet.create({
     height: Constant.size.editHeight,
     borderBottomWidth: 1,
     borderBottomColor: Constant.colors.line,
+  },
+  dateV: {
+    flex: 1,
+    backgroundColor: Constant.colors.item,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 10,
+    paddingRight: 8,
+    height: Constant.size.editHeight,
+    borderBottomWidth: 1,
+    borderBottomColor: Constant.colors.line,
+  },
+  dateText: {
+    fontSize: 17,
   },
   iconV: {
     width: Constant.size.editHeight,
@@ -198,6 +193,14 @@ const styles = StyleSheet.create({
     height: Constant.size.editHeight,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  iconHighlight: {
+    backgroundColor: Constant.colors.line
+  },
+  datePicker: {
+    backgroundColor: Constant.colors.item,
+    borderRightWidth: 1,
+    borderRightColor: Constant.colors.line,
   }
 });
 
