@@ -22,6 +22,8 @@ export default {
       '#f0db3d',
       '#5aebaf'
     ],
+    edit: '#5dc3f5',
+    delete: '#e20522'
   },
   size: {
     topBar: 64,

@@ -1,6 +1,5 @@
 import React from 'react';
 import BindComponent from '../BindComponent';
-import Button from 'react-native-button';
 import {
   StyleSheet,
   Text,

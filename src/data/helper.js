@@ -95,5 +95,15 @@ export default {
         }
       });
     };
+  },
+  deleteOneAsync: function(key) {
+    return new Promise(async function(resolve, reject) {
+      try {
+        await AsyncStorage.removeItem(key);
+        resolve(true);
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 }

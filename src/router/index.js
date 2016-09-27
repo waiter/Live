@@ -46,9 +46,11 @@ class RouterComponent extends React.Component {
             <Scene key="home" component={Home} hideNavBar={false}
               title="Days"
               type={ActionConst.REPLACE}
+              leftButtonStyle={styles.leftButtonStyle1}
             />
-            <Scene key="add" component={Edit} hideNavBar={false} title="Add"/>
-            <Scene key="edit" component={Edit} hideNavBar={false} title="Edit"/>
+            <Scene key="add" component={Edit} hideNavBar={false} title="Add"
+              leftButtonStyle={styles.leftButtonStyle2}
+            />
           </Scene>
         </Router>
       </Provider>
@@ -69,8 +71,13 @@ const styles = StyleSheet.create({
   rightButtonIconStyle: {
     width: Constant.size.topBarImg,
     height: Constant.size.topBarImg,
-    borderWidth: 1,
-    borderColor: '#fff',
+  },
+  leftButtonStyle1: {
+    marginTop: 0,
+  },
+  leftButtonStyle2: {
+    marginTop: 0,
+    paddingTop: 4,
   }
 });
 

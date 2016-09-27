@@ -4,14 +4,14 @@ import {
   Text,
   View,
   ListView,
-  TouchableHighlight,
-  Alert
+  TouchableOpacity,
+  Alert,
+  Image
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import moment from 'moment';
 import Constant from '../../constant';
-import Button from 'react-native-button';
 import { connect } from 'react-redux';
 import DataHelper from '../../data/helper';
 import Events from '../../data/events';
@@ -25,7 +25,8 @@ const bindThing = [
   'renderHiddenItem',
   'deleteRow',
   'changeShowType',
-  'onEditItem'
+  'onEditItem',
+  'deleteData'
 ];
 
 class Home extends BindComponent {
@@ -36,7 +37,6 @@ class Home extends BindComponent {
       dataSource: this.makeEventArray(props.events),
       showType: 1,
     };
-    console.log(this.state.dataSource);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,7 +48,6 @@ class Home extends BindComponent {
   }
 
   componentWillMount () {
-    console.log(ImageHelper.user);
     Actions.refresh({
       rightButtonImage: ImageHelper.add,
       onRight: () => Actions.add(),
@@ -71,52 +70,23 @@ class Home extends BindComponent {
     return (
       <Item rowData={rowData} showType={this.state.showType} onPress={_ => alert('xxx')}/>
     );
-    let word = ['已过', rowData.diffDays, '天'];
-    if (this.state.showType === 2) {
-      word[0] = `到${rowData.baseYear}周年还需要`;
-      word[1] = rowData.baseDiff;
-    } else if (this.state.showType === 3) {
-      word[0] = `到第${rowData.newYearPer}个10年还需要`;
-      word[1] = rowData.newDiff;
-    }
-    return (
-      <View style={styles.item}>
-        <View style={styles.itemLeft}>
-        <Button
-          activeOpacity={0.8}
-          onPress={_ => alert('xxx')}
-        >
-            <Text style={styles.itemLeftText}>{rowData.title}</Text>
-        </Button>
-      </View>
+  }
 
-        <View style={styles.itemRight}>
-        <Button
-          activeOpacity={0.8}
-          onPress={this.changeShowType}
-        >
-          <Text style={styles.itemRightText}>
-            {word[0]}
-            <Text style={styles.itemLeftText}>{word[1]}</Text>
-            {word[2]}
-          </Text>
-      </Button>
-        </View>
-      </View>
-    );
+  async deleteData(rowId, dispatch) {
+    try {
+      const [nd, de] = Events.deleteData(this.props.events.ids[rowId]);
+      await DataHelper.saveDatasAsync(nd);
+      dispatch(ReduxActions.eventInitDatas(Events.getCurrentDatas()));
+      await DataHelper.deleteOneAsync(de);
+    } catch(e) {
+      console.log(e);
+    }
   }
 
   deleteRow(secId, rowId, rowMap, rowData) {
 		rowMap[`${secId}${rowId}`].closeRow();
-		// const newData = [...this.state.dataSource];
-		// newData.splice(rowId, 1);
-		// this.setState({dataSource: newData});
     const dispatch = this.props.dispatch;
-    const [nd, de] = Events.deleteData(this.props.events.ids[rowId]);
-    DataHelper.saveDatas(nd)((e,d) => {
-      dispatch(ReduxActions.eventInitDatas(Events.getCurrentDatas()));
-      DataHelper.deleteOne(de)(_ => {});
-    });
+    this.deleteData(rowId, dispatch);
 	}
 
   onEditItem(secId, rowId, rowMap, rowData) {
@@ -128,26 +98,19 @@ class Home extends BindComponent {
   renderHiddenItem(rowData, secId, rowId, rowMap) {
     return (
       <View style={styles.itemHidden}>
-        <View style={styles.itemLeft}>
-          <Text style={styles.itemLeftText}>{rowData.title}</Text>
-        </View>
-        <Button
-          activeOpacity={0.8}
-          containerStyle={styles.editButton}
-          // style={styles.itemRightText}
+        <TouchableOpacity
+          style={styles.editButton}
           onPress={_ => this.onEditItem(secId, rowId, rowMap, rowData)}>
-          Edit
-        </Button>
-        <Button
-          activeOpacity={0.8}
-          containerStyle={styles.deleteButton}
-          // style={styles.itemRightText}
+          <Image source={ImageHelper.create} style={styles.icon} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.deleteButton}
           onPress={_ => Alert.alert('Are you sure?', '删除将不可恢复，确定要删除'+rowData.title+'?', [
             {text: 'NNNNNO!', onPress: () => console.log('xxx')},
             {text: 'Yes', onPress: () => this.deleteRow(secId, rowId, rowMap, rowData)}
           ])}>
-          Delete
-        </Button>
+          <Image source={ImageHelper.delete} style={styles.icon} />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -161,7 +124,7 @@ class Home extends BindComponent {
           renderRow={this.renderItem}
           renderHiddenRow={(rowData, secId, rowId, rowMap) => this.renderHiddenItem(rowData, secId, rowId, rowMap)}
 //           leftOpenValue={75}
-          rightOpenValue={-150}
+          rightOpenValue={-Constant.size.itemHeight*2}
           />
       </View>
     );
@@ -188,12 +151,11 @@ const styles = StyleSheet.create({
   },
   itemHidden: {
     flex: 1,
-    height: 80,
-    // padding: 10,
     flexDirection: 'row',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    backgroundColor: '#fff',
+    justifyContent: 'flex-end',
+    borderBottomWidth: 1,
+    borderBottomColor: Constant.colors.line,
+    backgroundColor: Constant.colors.item,
   },
   itemLeft: {
     flex: 2
@@ -208,23 +170,28 @@ const styles = StyleSheet.create({
   itemRight: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    borderBottomWidth: 1,
+    borderBottomColor: Constant.colors.line,
   },
   editButton: {
-    width: 70,
-    padding: 5,
-    height: 80,
+    width: Constant.size.itemHeight,
+    height: Constant.size.itemHeight - 1,
+    backgroundColor: Constant.colors.edit,
     justifyContent: 'center',
-    backgroundColor: 'green'
+    alignItems: 'center'
   },
   deleteButton: {
-    width: 80,
-    padding: 5,
-    height: 80,
+    width: Constant.size.itemHeight,
+    height: Constant.size.itemHeight - 1,
+    backgroundColor: Constant.colors.delete,
     justifyContent: 'center',
-    backgroundColor: 'red'
-  }
+    alignItems: 'center'
+  },
+  icon: {
+    width: Constant.size.topBarImg,
+    height: Constant.size.topBarImg
+  },
 });
 
 export default connect(state => ({events: state.events}))(Home);

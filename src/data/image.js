@@ -26,6 +26,9 @@ const img = {
         img.audiotrack = await Icon.getImageSource('audiotrack', iconSize, iconColor);
         img.camera = await Icon.getImageSource('camera-alt', iconSize, iconColor);
         img.breakfast = await Icon.getImageSource('free-breakfast', iconSize, iconColor);
+
+        img.create = await Icon.getImageSource('create', iconSize, topColor);
+        img.delete = await Icon.getImageSource('delete-forever', iconSize, topColor);
         resolve();
       } catch(err) {
         reject(err);
