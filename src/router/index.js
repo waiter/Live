@@ -4,6 +4,7 @@ import {Scene, Router, Reducer, ActionConst, Actions} from 'react-native-router-
 import Home from '../scene/Home';
 import Loading from '../scene/Loading';
 import Edit from '../scene/Edit';
+import Show from '../scene/Show';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from '../redux/reducers';
@@ -51,6 +52,7 @@ class RouterComponent extends React.Component {
             <Scene key="add" component={Edit} hideNavBar={false} title="Add"
               leftButtonStyle={styles.leftButtonStyle2}
             />
+            <Scene key="show" component={Show} hideNavBar direction="vertical"/>
           </Scene>
         </Router>
       </Provider>
