@@ -6,7 +6,6 @@ import {
   Text,
   TouchableHighlight,
   ScrollView,
-  Image,
   TextInput
 } from 'react-native';
 import moment from 'moment';
@@ -23,7 +22,8 @@ import Popup from 'rmc-date-picker/lib/Popup';
 
 const titleDefault = '十年之前';
 const bindThing = [
-  'onDone'
+  'onDone',
+  'renderIcons'
 ];
 
 class Edit extends BindComponent {
@@ -43,7 +43,7 @@ class Edit extends BindComponent {
     this.maxDate = moment();
   }
 
-  onDone() {
+  async onDone() {
     const nowData = {
       title: this.state.text || titleDefault,
       time: this.state.monDate.format('YYYY-MM-DD'),
@@ -53,11 +53,13 @@ class Edit extends BindComponent {
       Events.editData(this.state.rowKey, nowData) :
       Events.addData(nowData);
     const dispatch = this.props.dispatch;
-    DataHelper.saveDatas(need)((e,d) => {
-      console.log(Events.getCurrentDatas());
+    try {
+      await DataHelper.saveDatasAsync(need);
       dispatch(ReduxActions.eventRestData(Events.getCurrentDatas()));
       Actions.pop();
-    });
+    } catch (err) {
+      console.log(e);
+    }
   }
 
   componentWillMount () {
@@ -65,6 +67,7 @@ class Edit extends BindComponent {
       rightButtonImage: ImageHelper.done,
       backButtonImage: ImageHelper.arrowBack,
       onRight: this.onDone,
+      title: this.state.rowKey.length > 0 ? 'Edit' : 'Add'
     })
   }
 
@@ -82,7 +85,7 @@ class Edit extends BindComponent {
           <TouchableHighlight
             underlayColor={Constant.colors.line}
             key={j} style={sty} onPress={_ => this.setState({iconId: kid})}>
-            <Image source={ImageHelper[Constant.icons[kid]]} style={styles.icon}/>
+            <Icon name={Constant.iconWords[kid]} size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
           </TouchableHighlight>
         );
       }
@@ -100,7 +103,7 @@ class Edit extends BindComponent {
       <ScrollView keyboardShouldPersistTaps={true} >
         <View style={styles.line1} >
           <View style={styles.iconV} >
-            <Image source={ImageHelper[Constant.icons[this.state.iconId]]} style={styles.icon}/>
+            <Icon name={Constant.iconWords[this.state.iconId]} size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
           </View>
           <TextInput
             style={styles.textInput}
@@ -161,13 +164,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderRightColor: Constant.colors.line,
   },
-  icon: {
-    width: Constant.size.topBarImg,
-    height: Constant.size.topBarImg
-  },
-  textV: {
-    flex: 1
-  },
   textInput: {
     flex: 1,
     backgroundColor: Constant.colors.item,
@@ -205,7 +201,3 @@ const styles = StyleSheet.create({
 });
 
 export default connect(state => state)(Edit);
-
-// iconRight={[<Icon style={{alignSelf:'center', marginLeft:10}} name='ios-arrow-forward' size={30} />,
-//             <Icon style={{alignSelf:'center', marginLeft:10}} name='ios-arrow-down' size={30} />
-//             ]}

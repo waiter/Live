@@ -4,12 +4,11 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity,
   TouchableHighlight
 } from 'react-native';
 import Constant from '../../constant';
-import ImageHelper from '../../data/image';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const pad = 8;
 
@@ -98,7 +97,7 @@ export default class Item extends BindComponent {
       <View style={[styles.item, {borderLeftColor: this.color}]}>
         <View style={styles.contentView}>
           <View style={styles.iconView}>
-            <Image style={styles.icon} source={ImageHelper[Constant.icons[rowData.iconId || 0]]}/>
+            <Icon name={Constant.iconWords[rowData.iconId || 0]} size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
           </View>
           <View style={styles.itemLeft}>
             <Text numberOfLines={1} style={styles.itemLeftText}>{rowData.title}</Text>

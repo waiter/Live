@@ -19,6 +19,7 @@ import ReduxActions from '../../redux/actions';
 import ImageHelper from '../../data/image';
 import BindComponent from '../../components/BindComponent';
 import Item from '../../components/Item';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const bindThing = [
   'renderItem',
@@ -83,13 +84,18 @@ class Home extends BindComponent {
     }
   }
 
-  deleteRow(secId, rowId, rowMap, rowData) {
-		rowMap[`${secId}${rowId}`].closeRow();
-    const dispatch = this.props.dispatch;
-    this.deleteData(rowId, dispatch);
+  deleteRow(rowData, secId, rowId, rowMap) {
+    Alert.alert('Are you sure?', '删除将不可恢复，确定要删除'+rowData.title+'?', [
+      {text: 'NNNNNO!', onPress: null},
+      {text: 'Yes', onPress: () => {
+        rowMap[`${secId}${rowId}`].closeRow();
+        const dispatch = this.props.dispatch;
+        this.deleteData(rowId, dispatch);
+      }}
+    ]);
 	}
 
-  onEditItem(secId, rowId, rowMap, rowData) {
+  onEditItem(rowData, secId, rowId, rowMap) {
     const rowKey = this.props.events.ids[rowId];
     rowMap[`${secId}${rowId}`].closeRow();
     Actions.add({rowKey, rowData})
@@ -100,16 +106,15 @@ class Home extends BindComponent {
       <View style={styles.itemHidden}>
         <TouchableOpacity
           style={styles.editButton}
-          onPress={_ => this.onEditItem(secId, rowId, rowMap, rowData)}>
-          <Image source={ImageHelper.create} style={styles.icon} />
+          activeOpacity={0.9}
+          onPress={_ => this.onEditItem(rowData, secId, rowId, rowMap)}>
+          <Icon name="create" size={Constant.size.topBarImg} color={Constant.colors.topBarImg} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.deleteButton}
-          onPress={_ => Alert.alert('Are you sure?', '删除将不可恢复，确定要删除'+rowData.title+'?', [
-            {text: 'NNNNNO!', onPress: () => console.log('xxx')},
-            {text: 'Yes', onPress: () => this.deleteRow(secId, rowId, rowMap, rowData)}
-          ])}>
-          <Image source={ImageHelper.delete} style={styles.icon} />
+          activeOpacity={0.9}
+          onPress={_ => this.deleteRow(rowData, secId, rowId, rowMap)}>
+          <Icon name="delete-forever" size={Constant.size.topBarImg} color={Constant.colors.topBarImg} />
         </TouchableOpacity>
       </View>
     );
@@ -123,7 +128,6 @@ class Home extends BindComponent {
           dataSource={this.ds.cloneWithRows(this.state.dataSource)}
           renderRow={this.renderItem}
           renderHiddenRow={(rowData, secId, rowId, rowMap) => this.renderHiddenItem(rowData, secId, rowId, rowMap)}
-//           leftOpenValue={75}
           rightOpenValue={-Constant.size.itemHeight*2}
           />
       </View>
@@ -134,20 +138,6 @@ class Home extends BindComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     paddingTop: 80,
-    // backgroundColor: Constant.colors.topBar,
-  },
-  item: {
-    flex: 1,
-    height: 80,
-    padding: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    backgroundColor: Constant.colors.background,
-    borderBottomWidth: 0.5,
-    borderBottomColor: Constant.colors.line,
   },
   itemHidden: {
     flex: 1,
@@ -156,23 +146,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: Constant.colors.line,
     backgroundColor: Constant.colors.item,
-  },
-  itemLeft: {
-    flex: 2
-  },
-  itemLeftText: {
-    fontSize: 20,
-    color: Constant.colors.word
-  },
-  itemRightText: {
-    fontSize: 10
-  },
-  itemRight: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    borderBottomWidth: 1,
-    borderBottomColor: Constant.colors.line,
   },
   editButton: {
     width: Constant.size.itemHeight,
@@ -187,10 +160,6 @@ const styles = StyleSheet.create({
     backgroundColor: Constant.colors.delete,
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  icon: {
-    width: Constant.size.topBarImg,
-    height: Constant.size.topBarImg
   },
 });
 

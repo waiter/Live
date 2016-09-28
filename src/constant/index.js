@@ -45,4 +45,18 @@ export default {
     "camera",
     "breakfast"
   ],
+  iconWords: [
+    "favorite",
+    "email",
+    "cake",
+    "person",
+    "home",
+    "fitness-center",
+    "toys",
+    "local-florist",
+    "notifications",
+    "audiotrack",
+    "camera-alt",
+    "free-breakfast"
+  ],
 };
