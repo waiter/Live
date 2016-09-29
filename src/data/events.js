@@ -1,13 +1,14 @@
 import Keys from './keys';
 import {AsyncStorage} from 'react-native';
 import moment from 'moment';
+import Language from '../Language';
 
 const datas = {
   start: 1,
   ids: ['a1'],
   datas: {
     a1: {
-      title: '开始回忆日',
+      title: 'xxx',
       time: moment().format('YYYY-MM-DD')
     }
   },
@@ -24,6 +25,12 @@ const datas = {
         }
       });
     } else {
+      datas.datas = {
+        a1: {
+          title: Language.datas.startApp,
+          time: moment().format('YYYY-MM-DD')
+        }
+      };
       re[Keys.DATA_EVENT_START_ID] = '' + datas.start;
       re[Keys.DATA_EVENT_ID_LIST] = JSON.stringify(datas.ids);
       const idds = Object.keys(datas.datas);

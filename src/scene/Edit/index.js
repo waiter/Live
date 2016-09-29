@@ -18,9 +18,8 @@ import ImageHelper from '../../data/image';
 import Constant from '../../constant';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import DatePicker from 'rmc-date-picker';
-import Popup from 'rmc-date-picker/lib/Popup';
+import Language from '../../Language';
 
-const titleDefault = '十年之前';
 const bindThing = [
   'onDone',
   'renderIcons'
@@ -32,12 +31,10 @@ class Edit extends BindComponent {
     const rowData = this.props.rowData || {};
     this.state = {
       rowKey: this.props.rowKey || '',
-      title: rowData.title || titleDefault,
-      date: rowData.time || moment().format('YYYY-MM-DD'),
       iconId: rowData.iconId || 0,
       dateShow: false,
       monDate: rowData.time ? moment(rowData.time, 'YYYY-MM-DD') : moment(),
-      text: rowData.title || titleDefault,
+      text: rowData.title || Language.datas.defaultTitle,
     };
     this.minDate = moment('1900-01-01', 'YYYY-MM-DD');
     this.maxDate = moment();
@@ -45,7 +42,7 @@ class Edit extends BindComponent {
 
   async onDone() {
     const nowData = {
-      title: this.state.text || titleDefault,
+      title: this.state.text || Language.datas.defaultTitle,
       time: this.state.monDate.format('YYYY-MM-DD'),
       iconId: this.state.iconId
     }
@@ -67,7 +64,7 @@ class Edit extends BindComponent {
       rightButtonImage: ImageHelper.done,
       backButtonImage: ImageHelper.arrowBack,
       onRight: this.onDone,
-      title: this.state.rowKey.length > 0 ? 'Edit' : 'Add'
+      title: this.state.rowKey.length > 0 ? Language.datas.edit : Language.datas.add
     })
   }
 
@@ -110,13 +107,13 @@ class Edit extends BindComponent {
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}
             autoFocus
-            placeholder="<输入标题>"
-            defaultValue={titleDefault}
+            placeholder={Language.datas.placeholder}
+            defaultValue={Language.datas.defaultTitle}
           />
         </View>
         {this.renderIcons()}
         <View style={styles.dateV}>
-          <Text style={styles.dateText}>日期</Text>
+          <Text style={styles.dateText}>{Language.datas.date}</Text>
           <Text style={styles.dateText}>{this.state.monDate.format('YYYY-MM-DD')}</Text>
         </View>
         <View style={styles.datePicker}>

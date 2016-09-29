@@ -36,8 +36,10 @@ class Loading extends Component {
     dispatch(ReduxActions.startLoading());
     try {
       const data = await DataHelper.getAllDataAsync();
+      // data.dataIsOpened = 0;
       console.log(data);
       const need = Events.initData(data);
+      console.log(need);
       await DataHelper.saveDatasAsync(need);
       await ImageHelper._init();
       dispatch(ReduxActions.eventInitDatas(Events.getCurrentDatas()));

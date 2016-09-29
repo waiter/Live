@@ -20,6 +20,7 @@ import ImageHelper from '../../data/image';
 import BindComponent from '../../components/BindComponent';
 import Item from '../../components/Item';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Language from '../../Language';
 
 const bindThing = [
   'renderItem',
@@ -85,9 +86,9 @@ class Home extends BindComponent {
   }
 
   deleteRow(rowData, secId, rowId, rowMap) {
-    Alert.alert('Are you sure?', '删除将不可恢复，确定要删除'+rowData.title+'?', [
-      {text: 'NNNNNO!', onPress: null},
-      {text: 'Yes', onPress: () => {
+    Alert.alert(Language.datas.sure, '删除将不可恢复，确定要删除'+rowData.title+'?', [
+      {text: Language.datas.no, onPress: null},
+      {text: Language.datas.yes, onPress: () => {
         rowMap[`${secId}${rowId}`].closeRow();
         const dispatch = this.props.dispatch;
         this.deleteData(rowId, dispatch);
@@ -121,7 +122,6 @@ class Home extends BindComponent {
   }
 
   render() {
-    const backName = this.props.back || 'home';
     return (
       <View style={styles.container}>
         <SwipeListView

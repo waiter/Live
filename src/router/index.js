@@ -10,6 +10,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from '../redux/reducers';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Constant from '../constant';
+import Language from '../Language';
 
 const getSceneStyle = function (props, computedProps) {
   const style = {
@@ -30,6 +31,7 @@ const store = compose(
 class RouterComponent extends React.Component {
   constructor(props) {
     super(props);
+    Language.init();
     StatusBar.setBarStyle('light-content', 'fade');
   }
 
@@ -45,11 +47,11 @@ class RouterComponent extends React.Component {
           <Scene key="root">
             <Scene key="loading" component={Loading} hideNavBar title="Loading" initial={true}/>
             <Scene key="home" component={Home} hideNavBar={false}
-              title="Days"
+              title={Language.datas.title}
               type={ActionConst.REPLACE}
               leftButtonStyle={styles.leftButtonStyle1}
             />
-            <Scene key="add" component={Edit} hideNavBar={false} title="Add"
+            <Scene key="add" component={Edit} hideNavBar={false} title={Language.datas.add}
               leftButtonStyle={styles.leftButtonStyle2}
             />
             <Scene key="show" component={Show} hideNavBar direction="vertical"/>
