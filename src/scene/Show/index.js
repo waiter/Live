@@ -11,13 +11,21 @@ import Constant from '../../constant';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
 import * as Progress from 'react-native-progress';
+import Page from '../../components/Page';
+import Util from '../../kit/util';
 
 class Show extends Component {
   constructor(props) {
     super(props);
+    this.words = Util.makeWord(props.rowData);
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.words = Util.makeWord(newProps.rowData);
   }
 
   render() {
+    const rowData = this.props.rowData;
     return (
       <View style={styles.container}>
         <Carousel
@@ -29,27 +37,33 @@ class Show extends Component {
           indicatorSize={Constant.size.topBarImg}
           indicatorSpace={Constant.size.topBarImg/2}
         >
-          <View style={styles.itemView}>
-            <Text>重要日子</Text>
-            <Text>2016-09-28</Text>
-            <Progress.Circle size={150} thickness={10} progress={0.8}/>
-            <Text>7777</Text>
-            <Text>已过</Text>
-          </View>
-          <View style={styles.itemView}>
-            <Text>重要日子</Text>
-            <Text>2016-09-28</Text>
-            <Progress.Circle size={150} thickness={10} progress={0.8}/>
-            <Text>5565</Text>
-            <Text>已过</Text>
-          </View>
-          <View style={styles.itemView}>
-            <Text>重要日子</Text>
-            <Text>2016-09-28</Text>
-            <Progress.Circle size={150} thickness={10} progress={0.8}/>
-            <Text>2233</Text>
-            <Text>已过</Text>
-          </View>
+          <Page
+            icon={Constant.iconWords[rowData.iconId || 0]}
+            title={rowData.title}
+            time={rowData.time}
+            years="∞"
+            per={1}
+            days={this.words[1][1]}
+            addition={this.words[1][0]}
+          />
+          <Page
+            icon={Constant.iconWords[rowData.iconId || 0]}
+            title={rowData.title}
+            time={rowData.time}
+            years={`${rowData.baseYear}`}
+            per={1.0 * rowData.diffDays / (rowData.diffDays + rowData.baseDiff)}
+            days={this.words[2][1]}
+            addition={this.words[2][0]}
+          />
+          <Page
+            icon={Constant.iconWords[rowData.iconId || 0]}
+            title={rowData.title}
+            time={rowData.time}
+            years={`${rowData.newYearPer * 10 * (rowData.is29 ? 2 : 1)}`}
+            per={1.0 * rowData.diffDays / (rowData.diffDays + rowData.newDiff)}
+            days={this.words[3][1]}
+            addition={this.words[3][0]}
+          />
         </Carousel>
         <TouchableOpacity
           style={styles.closeView}
@@ -74,20 +88,15 @@ const styles = StyleSheet.create({
     backgroundColor: Constant.colors.item,
   },
   itemView: {
-    // flex: 1,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-    // borderWidth: 3,
-    // borderColor: '#f00'
     alignItems: 'center',
     justifyContent: 'center'
   },
   bottomView: {
-    // flex: 1,
     left: 0,
     bottom: 0,
     right: 0,
-    // alignSelf: 'flex-end',
     height: 100,
     borderWidth: 3,
     borderColor: '#000',
@@ -101,8 +110,6 @@ const styles = StyleSheet.create({
     height: Constant.size.editHeight,
     alignItems: 'center',
     justifyContent: 'center',
-    // borderWidth: 1,
-    // borderColor: '#000'
   },
   shareView: {
     position: 'absolute',
@@ -112,8 +119,6 @@ const styles = StyleSheet.create({
     height: Constant.size.editHeight,
     alignItems: 'center',
     justifyContent: 'center',
-    // borderWidth: 1,
-    // borderColor: '#000'
   },
 });
 

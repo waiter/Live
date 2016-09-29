@@ -45,37 +45,35 @@ const datas = {
     const now = moment().startOf('day');
     re.diffDays = now.diff(date, 'days');
     const minDiffYear = re.diffDays < 365 ? 1 : parseInt(re.diffDays / 365, 10);
-    re.is29 = date.format('MM-DD') === '02-29';
+    re.is29 = date.isLeapYear() && date.format('MM-DD') === '02-29';
     if (re.is29) {
       let start = parseInt(minDiffYear / 4, 10);
-      let diff = date.add(start, 'y').diff(now, 'days');
+      let diff = moment(date).add(start, 'y').diff(now, 'days');
       while (diff < 0) {
         start += 4;
-        diff = date.add(start, 'y').diff(now, 'days');
+        diff = moment(date).add(start, 'y').diff(now, 'days');
       }
       re.baseYear = start;
       re.baseDiff = diff;
       let newY = parseInt(start / 20, 10) + (start % 20 == 0 ? 0 : 1);
-      let newYD = date.add(newY * 20, 'y');
+      let newYD = moment(date).add(newY * 20, 'y');
       while (!newYD.isLeapYear()) {
         newY++;
-        newYD = date.add(newY * 20, 'y');
+        newYD = moment(date).add(newY * 20, 'y');
       }
       re.newYearPer = newY;
       re.newDiff = newYD.diff(now, 'days');
     } else {
       let start = minDiffYear;
-      console.log(start);
-      let diff = date.add(start, 'y').diff(now, 'days');
-      console.log(diff);
+      let diff = moment(date).add(start, 'y').diff(now, 'days');
       while (diff < 0) {
         start++;
-        diff = date.add(start, 'y').diff(now, 'days');
+        diff = moment(date).add(start, 'y').diff(now, 'days');
       }
       re.baseYear = start;
       re.baseDiff = diff;
       re.newYearPer = parseInt(start / 10, 10) + (start % 10 == 0 ? 0 : 1);
-      re.newDiff = date.add(re.newYearPer * 10, 'y').diff(now, 'days');
+      re.newDiff = moment(date).add(re.newYearPer * 10, 'y').diff(now, 'days');
     }
     return re;
   },

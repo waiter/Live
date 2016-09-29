@@ -69,7 +69,7 @@ class Home extends BindComponent {
 
   renderItem(rowData) {
     return (
-      <Item rowData={rowData} showType={this.state.showType} onPress={_ => Actions.show()}/>
+      <Item rowData={rowData} showType={this.state.showType} onPress={_ => Actions.show({rowData})}/>
     );
   }
 

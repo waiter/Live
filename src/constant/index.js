@@ -30,6 +30,9 @@ export default {
     topBarImg: 30,
     itemHeight: 60,
     editHeight: 50,
+    circle: 140,
+    circleWord: 120,
+    circleWordSize: 50,
   },
   icons: [
     "favorite",

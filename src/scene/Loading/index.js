@@ -11,13 +11,19 @@ import { connect } from 'react-redux';
 import Events from '../../data/events';
 import ReduxActions from '../../redux/actions';
 import {Actions} from 'react-native-router-flux';
+import * as Progress from 'react-native-progress';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Constant.colors.background
+    backgroundColor: Constant.colors.background,
+  },
+  text: {
+    fontSize: 20,
+    color: Constant.colors.iconColor,
+    marginTop: 8,
   }
 });
 
@@ -50,7 +56,8 @@ class Loading extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.props.loading?'载入中...':'载入成功'}</Text>
+        <Progress.CircleSnail size={60} thickness={5} color={Constant.colors.iconColor} />
+        <Text style={styles.text}>Loading...</Text>
       </View>
     );
   }

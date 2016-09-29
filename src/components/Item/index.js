@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Constant from '../../constant';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Util from '../../kit/util';
 
 const pad = 8;
 
@@ -65,33 +66,21 @@ const styles = StyleSheet.create({
 
 export default class Item extends BindComponent {
   constructor(props) {
-    super(props, ['checkData']);
+    super(props, []);
     const len = Constant.colors.kitList.length;
     const cId = parseInt(len * Math.random(), 10);
     this.color = Constant.colors.kitList[cId];
-    this.checkData(props.rowData, props.showType);
+    this.words = Util.makeWord(props.rowData);
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.showType != this.props.showType ||
-      JSON.stringify(newProps.rowData) != JSON.stringify(this.props.rowData)) {
-      this.checkData(newProps.rowData, newProps.showType);
-    }
-  }
-
-  checkData(rowData, showType) {
-    this.word = ['已过天数', rowData.diffDays];
-    if (showType === 2) {
-      this.word[0] = `距${rowData.baseYear}周年天数`;
-      this.word[1] = rowData.baseDiff;
-    } else if (showType === 3) {
-      this.word[0] = `距${rowData.newYearPer}个10年天数`;
-      this.word[1] = rowData.newDiff;
+    if (JSON.stringify(newProps.rowData) != JSON.stringify(this.props.rowData)) {
+      this.words = Util.makeWord(newProps.rowData);
     }
   }
 
   render() {
-    const {rowData, onPress} = this.props;
+    const {rowData, onPress, showType} = this.props;
     return (
       <TouchableHighlight onPress={onPress}>
       <View style={[styles.item, {borderLeftColor: this.color}]}>
@@ -104,8 +93,8 @@ export default class Item extends BindComponent {
             <Text style={styles.smallText}>{rowData.time}</Text>
           </View>
           <View style={styles.itemRight}>
-            <Text numberOfLines={1} style={styles.smallText}>{this.word[0]}</Text>
-            <Text style={styles.itemLeftText}>{this.word[1]}</Text>
+            <Text numberOfLines={1} style={styles.smallText}>{this.words[showType][0]}</Text>
+            <Text style={styles.itemLeftText}>{this.words[showType][1]}</Text>
           </View>
         </View>
       </View>
