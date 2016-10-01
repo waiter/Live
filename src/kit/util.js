@@ -1,12 +1,19 @@
+import format from 'format';
+import Language from '../Language';
 
 const util = {
   makeWord: function(rowData) {
     const words = {};
-    words[1] = ['已过天数', rowData.diffDays];
-    words[2] = [`距${rowData.baseYear}周年天数`, rowData.baseDiff];
-    words[3] = [rowData.is29 ?
-      `距${rowData.newYearPer * 2}个10年天数` :
-      `距${rowData.newYearPer}个10年天数`, rowData.newDiff];
+    let th = 'th';
+    if (rowData.baseYear == 1) {
+      th = 'st';
+    } else if (rowData.baseYear == 2) {
+      th = 'rd';
+    }
+    words[1] = [Language.datas.pastDays, rowData.diffDays];
+    words[2] = [format(Language.datas.yearDays, rowData.baseYear, th), rowData.baseDiff];
+    words[3] = [format(Language.datas.year10Days, rowData.is29 ? rowData.newYearPer * 2 : rowData.newYearPer),
+      rowData.newDiff];
     return words;
   },
 };

@@ -10,4 +10,8 @@ export default {
   yes: '是的！',
   sure: '你确定吗？',
   startApp: '开始使用十年',
+  sureContent: '这个操作将删除数据且无法恢复，确认要删除吗？',
+  pastDays: '已过天数',
+  yearDays: '距%s周年天数',
+  year10Days: '距第%s个10周年天数',
 };

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     fontSize: 10
   },
   itemRight: {
-    maxWidth: 100,
+    maxWidth: 130,
     padding: pad,
     paddingLeft: 0,
     alignItems: 'flex-end',

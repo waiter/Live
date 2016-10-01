@@ -6,7 +6,7 @@ import {
   Text,
   TouchableHighlight,
   ScrollView,
-  TextInput
+  TextInput,
 } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
@@ -22,7 +22,8 @@ import Language from '../../Language';
 
 const bindThing = [
   'onDone',
-  'renderIcons'
+  'renderIcons',
+  'onBack'
 ];
 
 class Edit extends BindComponent {
@@ -38,9 +39,11 @@ class Edit extends BindComponent {
     };
     this.minDate = moment('1900-01-01', 'YYYY-MM-DD');
     this.maxDate = moment();
+    this.needReset = true;
   }
 
   async onDone() {
+    this.refs.textInput.blur();
     const nowData = {
       title: this.state.text || Language.datas.defaultTitle,
       time: this.state.monDate.format('YYYY-MM-DD'),
@@ -53,19 +56,34 @@ class Edit extends BindComponent {
     try {
       await DataHelper.saveDatasAsync(need);
       dispatch(ReduxActions.eventRestData(Events.getCurrentDatas()));
+      this.needReset = true;
       Actions.pop();
     } catch (err) {
       console.log(e);
     }
   }
 
+  onBack() {
+    this.refs.textInput.blur();
+    this.needReset = true;
+    Actions.pop();
+  }
+
   componentWillMount () {
+    this.needReset = false;
     Actions.refresh({
       rightButtonImage: ImageHelper.done,
       backButtonImage: ImageHelper.arrowBack,
       onRight: this.onDone,
-      title: this.state.rowKey.length > 0 ? Language.datas.edit : Language.datas.add
-    })
+      title: this.state.rowKey.length > 0 ? Language.datas.edit : Language.datas.add,
+      onBack: this.onBack
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.needReset) {
+      this.componentWillMount();
+    }
   }
 
   renderIcons() {
@@ -97,12 +115,13 @@ class Edit extends BindComponent {
 
   render() {
     return (
-      <ScrollView keyboardShouldPersistTaps={true} >
-        <View style={styles.line1} >
+      <ScrollView>
+        <View style={styles.line1}>
           <View style={styles.iconV} >
             <Icon name={Constant.iconWords[this.state.iconId]} size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
           </View>
           <TextInput
+            ref="textInput"
             style={styles.textInput}
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}

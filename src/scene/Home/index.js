@@ -52,7 +52,7 @@ class Home extends BindComponent {
   componentWillMount () {
     Actions.refresh({
       rightButtonImage: ImageHelper.add,
-      onRight: () => Actions.add(),
+      onRight: () => Actions.add({xx: 1}),
       leftButtonImage: ImageHelper.swap,
       onLeft: this.changeShowType
     })
@@ -86,7 +86,7 @@ class Home extends BindComponent {
   }
 
   deleteRow(rowData, secId, rowId, rowMap) {
-    Alert.alert(Language.datas.sure, '删除将不可恢复，确定要删除'+rowData.title+'?', [
+    Alert.alert(Language.datas.sure, Language.datas.sureContent, [
       {text: Language.datas.no, onPress: null},
       {text: Language.datas.yes, onPress: () => {
         rowMap[`${secId}${rowId}`].closeRow();
