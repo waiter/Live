@@ -5,9 +5,9 @@ const util = {
   makeWord: function(rowData) {
     const words = {};
     if (rowData.isAd) {
-      words[1] = ['xx','xx', false];
-      words[2] = ['xx','xx', false];
-      words[3] = ['xx','xx', false];
+      words[1] = [Language.datas.adWord1,Language.datas.adWord2, false];
+      words[2] = words[1];
+      words[3] = words[1];
     } else {
       words[1] = [Language.datas.pastDays, rowData.diffDays, false];
       if (rowData.baseDiff == 0) {

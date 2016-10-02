@@ -17,4 +17,8 @@ export default {
   yearDaysH1:'%s%s',
   yearDaysH2:'Anniversary',
   year10DaysH2:'10th Anniversary',
+  adTitle: 'What\'s that?',
+  adContent: 'It\'s just an AD',
+  adWord1: 'to remove this',
+  adWord2: 'CLICK',
 };

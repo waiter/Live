@@ -5,7 +5,7 @@ const ad = {
     home: 'ca-app-pub-5825705564244333/4820766406',
     video: 'ca-app-pub-5825705564244333/5599495601'
   },
-  // testDeviceID: '09a3ce0d7115b4bb4481cdb0d159c5b9addc149c',
+  // testDeviceID: '00fda71dc67fc13903cb9f0be47c0a35',
   testDeviceID: 'EMULATOR',
   isReady: false,
   isChecking: false,

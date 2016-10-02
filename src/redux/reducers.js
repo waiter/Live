@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import ActionKeys from './actionKeys';
 import Events from '../data/events';
 import ADManager from '../data/adManager';
+import Language from '../Language';
 
 function loading(state = {loading: true, text: ''}, action = {}) {
   switch (action.type) {
@@ -35,8 +36,8 @@ function events(state = {
         const vk = 'video';
         const vd = {
           isAd: true,
-          title: 'xxx',
-          time: 'xxxx',
+          title: Language.datas.adTitle,
+          time: Language.datas.adContent,
           iconId: 12,
         };
         datas[vk] = vd;

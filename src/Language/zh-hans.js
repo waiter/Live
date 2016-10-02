@@ -17,4 +17,8 @@ export default {
   yearDaysH1:'第%s个',
   yearDaysH2:'周年纪念日',
   year10DaysH2:'十周年纪念日',
+  adTitle: '这什么鬼？？',
+  adContent: '哦，就是个广告啊...',
+  adWord1: '要去掉它？',
+  adWord2: '点！',
 };
