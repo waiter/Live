@@ -6,7 +6,8 @@ import {
   ListView,
   TouchableOpacity,
   Alert,
-  Image
+  Image,
+  DeviceEventEmitter
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { SwipeListView } from 'react-native-swipe-list-view';
@@ -28,7 +29,9 @@ const bindThing = [
   'deleteRow',
   'changeShowType',
   'onEditItem',
-  'deleteData'
+  'deleteData',
+  'resetEvents',
+  'addTimer'
 ];
 
 class Home extends BindComponent {
@@ -39,6 +42,40 @@ class Home extends BindComponent {
       dataSource: this.makeEventArray(props.events),
       showType: 1,
     };
+    this.timer = null;
+    this.addTimer();
+    DeviceEventEmitter.addListener("deviceResume", this.resumeCheck);
+  }
+
+  resetEvents() {
+    console.log('rrrrrset');
+    const dispatch = this.props.dispatch;
+    Events.resetDatas();
+    dispatch(ReduxActions.eventInitDatas(Events.getCurrentDatas()));
+    // another day
+    this.addTimer();
+  }
+
+  addTimer() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = null;
+    }
+    const needTime = (moment().endOf('day').unix() - moment().unix() + 2) * 1000;
+    console.log(needTime);
+    this.timer = setTimeout(this.resetEvents, needTime);
+  }
+
+  resumeCheck() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = null;
+    }
+    const isSameDay = moment().isSame(Events.dataResetTime, 'day');
+    if (!isSameDay) {
+      this.resetEvents();
+    }
+    this.addTimer();
   }
 
   componentWillReceiveProps(nextProps) {

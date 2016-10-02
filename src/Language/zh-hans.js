@@ -13,5 +13,8 @@ export default {
   sureContent: '这个操作将删除数据且无法恢复，确认要删除吗？',
   pastDays: '已过天数',
   yearDays: '距%s周年天数',
-  year10Days: '距第%s个10周年天数',
+  year10Days: '距第%s个十周年天数',
+  yearDaysH1:'第%s个',
+  yearDaysH2:'周年纪念日',
+  year10DaysH2:'十周年纪念日',
 };

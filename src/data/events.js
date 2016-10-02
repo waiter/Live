@@ -12,6 +12,7 @@ const datas = {
       time: moment().format('YYYY-MM-DD')
     }
   },
+  dataResetTime: null,
   initData: function(allLocal) {
     const re = {};
     if (parseInt(allLocal[Keys.DATA_IS_OPENED] || '0', 10)) {
@@ -44,7 +45,14 @@ const datas = {
       datas.datas = newD;
       re[Keys.DATA_IS_OPENED] = '1';
     }
+    datas.dataResetTime = moment();
     return re;
+  },
+  resetDatas: function() {
+    datas.ids.forEach(id => {
+      datas.datas[id] = datas.makeDataTime(datas.datas[id]);
+    });
+    datas.dataResetTime = moment();
   },
   makeDataTime: function(obj) {
     const re = {...obj};

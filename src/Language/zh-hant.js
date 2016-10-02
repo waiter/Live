@@ -14,4 +14,7 @@ export default {
   pastDays: '已過天數',
   yearDays: '距%s週年天數',
   year10Days: '距第%s個10週年天數',
+  yearDaysH1:'第%s個',
+  yearDaysH2:'週年紀念日',
+  year10DaysH2:'十週年紀念日',
 };

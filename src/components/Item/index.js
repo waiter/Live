@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     borderLeftWidth: 6,
+    backgroundColor: Constant.colors.item,
   },
   itemLeft: {
     flex: 1,
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     padding: pad,
     paddingLeft: 0,
     alignItems: 'flex-end',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   icon: {
     width: Constant.size.topBarImg,
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     width: 50
   },
   contentView: {
-    backgroundColor: Constant.colors.item,
+    // backgroundColor: Constant.colors.item,
     flex: 1,
     flexDirection: 'row',
     height: Constant.size.itemHeight,
@@ -81,9 +82,17 @@ export default class Item extends BindComponent {
 
   render() {
     const {rowData, onPress, showType} = this.props;
+    const viewStyle = [styles.item, {borderLeftColor: this.color}];
+    const itemRight = [styles.itemRight];
+    if (this.words[showType][2]) {
+      itemRight.push({
+        borderRightWidth: 6,
+        borderRightColor: this.color,
+      });
+    }
     return (
       <TouchableHighlight onPress={onPress}>
-      <View style={[styles.item, {borderLeftColor: this.color}]}>
+      <View style={viewStyle}>
         <View style={styles.contentView}>
           <View style={styles.iconView}>
             <Icon name={Constant.iconWords[rowData.iconId || 0]} size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
@@ -92,7 +101,7 @@ export default class Item extends BindComponent {
             <Text numberOfLines={1} style={styles.itemLeftText}>{rowData.title}</Text>
             <Text style={styles.smallText}>{rowData.time}</Text>
           </View>
-          <View style={styles.itemRight}>
+          <View style={itemRight}>
             <Text numberOfLines={1} style={styles.smallText}>{this.words[showType][0]}</Text>
             <Text style={styles.itemLeftText}>{this.words[showType][1]}</Text>
           </View>

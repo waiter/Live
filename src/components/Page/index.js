@@ -51,7 +51,7 @@ Page.propTypes = {
   time: React.PropTypes.string.isRequired,
   years: React.PropTypes.string.isRequired,
   per: React.PropTypes.number.isRequired,
-  days: React.PropTypes.number.isRequired,
+  days: React.PropTypes.string.isRequired,
   addition: React.PropTypes.string.isRequired,
 };
 

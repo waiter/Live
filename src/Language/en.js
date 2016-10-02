@@ -14,4 +14,7 @@ export default {
   pastDays: 'Past Days',
   yearDays: '%s%s Anniversary Left Days',
   year10Days: '%sX10th Anniversary Left Days',
+  yearDaysH1:'%s%s',
+  yearDaysH2:'Anniversary',
+  year10DaysH2:'10th Anniversary',
 };

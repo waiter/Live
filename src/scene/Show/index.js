@@ -43,7 +43,7 @@ class Show extends Component {
             time={rowData.time}
             years="∞"
             per={1}
-            days={this.words[1][1]}
+            days={`${this.words[1][1]}`}
             addition={this.words[1][0]}
           />
           <Page
@@ -52,7 +52,7 @@ class Show extends Component {
             time={rowData.time}
             years={`${rowData.baseYear}`}
             per={1.0 * rowData.diffDays / (rowData.diffDays + rowData.baseDiff)}
-            days={this.words[2][1]}
+            days={`${this.words[2][1]}`}
             addition={this.words[2][0]}
           />
           <Page
@@ -61,7 +61,7 @@ class Show extends Component {
             time={rowData.time}
             years={`${rowData.newYearPer * 10 * (rowData.is29 ? 2 : 1)}`}
             per={1.0 * rowData.diffDays / (rowData.diffDays + rowData.newDiff)}
-            days={this.words[3][1]}
+            days={`${this.words[3][1]}`}
             addition={this.words[3][0]}
           />
         </Carousel>
