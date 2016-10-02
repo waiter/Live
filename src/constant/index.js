@@ -57,6 +57,7 @@ export default {
     "notifications",
     "audiotrack",
     "camera-alt",
-    "free-breakfast"
+    "free-breakfast",
+    "local-movies"
   ],
 };

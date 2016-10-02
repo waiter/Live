@@ -12,16 +12,9 @@ export default {
       text,
     };
   },
-  eventInitDatas: function(data) {
+  eventRestData: function() {
     return {
-      type: ActionKeys.EVENT_INIT_DATAS,
-      data,
-    }
-  },
-  eventRestData: function(data) {
-    return {
-      type: ActionKeys.EVENT_RESET_DATA,
-      data,
+      type: ActionKeys.EVENT_RESET_DATA
     }
   }
 };

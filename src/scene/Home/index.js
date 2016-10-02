@@ -22,6 +22,8 @@ import BindComponent from '../../components/BindComponent';
 import Item from '../../components/Item';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Language from '../../Language';
+import { AdMobBanner} from 'react-native-admob';
+import ADManager from '../../data/adManager';
 
 const bindThing = [
   'renderItem',
@@ -31,7 +33,9 @@ const bindThing = [
   'onEditItem',
   'deleteData',
   'resetEvents',
-  'addTimer'
+  'addTimer',
+  'resumeCheck',
+  'onClickItem'
 ];
 
 class Home extends BindComponent {
@@ -45,13 +49,13 @@ class Home extends BindComponent {
     this.timer = null;
     this.addTimer();
     DeviceEventEmitter.addListener("deviceResume", this.resumeCheck);
+    // ADManager.checkReady();
   }
 
   resetEvents() {
-    console.log('rrrrrset');
     const dispatch = this.props.dispatch;
     Events.resetDatas();
-    dispatch(ReduxActions.eventInitDatas(Events.getCurrentDatas()));
+    dispatch(ReduxActions.eventRestData());
     // another day
     this.addTimer();
   }
@@ -62,7 +66,6 @@ class Home extends BindComponent {
       this.timer = null;
     }
     const needTime = (moment().endOf('day').unix() - moment().unix() + 2) * 1000;
-    console.log(needTime);
     this.timer = setTimeout(this.resetEvents, needTime);
   }
 
@@ -71,6 +74,7 @@ class Home extends BindComponent {
       clearTimeout(this.timer);
       this.timer = null;
     }
+    ADManager.checkReady(true);
     const isSameDay = moment().isSame(Events.dataResetTime, 'day');
     if (!isSameDay) {
       this.resetEvents();
@@ -87,9 +91,10 @@ class Home extends BindComponent {
   }
 
   componentWillMount () {
+    console.log('componentWillMount');
     Actions.refresh({
       rightButtonImage: ImageHelper.add,
-      onRight: () => Actions.add({xx: 1}),
+      onRight: () => {ADManager.checkReady();Actions.add();},
       leftButtonImage: ImageHelper.swap,
       onLeft: this.changeShowType
     })
@@ -107,15 +112,26 @@ class Home extends BindComponent {
 
   renderItem(rowData) {
     return (
-      <Item rowData={rowData} showType={this.state.showType} onPress={_ => Actions.show({rowData})}/>
+      <Item rowData={rowData} showType={this.state.showType} onPress={_ => this.onClickItem(rowData)}/>
     );
+  }
+
+  onClickItem(rowData) {
+    if (rowData.isAd) {
+      const dispatch = this.props.dispatch;
+      ADManager.isReady = false;
+      dispatch(ReduxActions.eventRestData());
+      ADManager.showAd();
+    } else {
+      Actions.show({rowData});
+    }
   }
 
   async deleteData(rowId, dispatch) {
     try {
       const [nd, de] = Events.deleteData(this.props.events.ids[rowId]);
       await DataHelper.saveDatasAsync(nd);
-      dispatch(ReduxActions.eventInitDatas(Events.getCurrentDatas()));
+      dispatch(ReduxActions.eventRestData());
       await DataHelper.deleteOneAsync(de);
     } catch(e) {
       console.log(e);
@@ -123,6 +139,7 @@ class Home extends BindComponent {
   }
 
   deleteRow(rowData, secId, rowId, rowMap) {
+    ADManager.checkReady();
     Alert.alert(Language.datas.sure, Language.datas.sureContent, [
       {text: Language.datas.no, onPress: null},
       {text: Language.datas.yes, onPress: () => {
@@ -136,10 +153,14 @@ class Home extends BindComponent {
   onEditItem(rowData, secId, rowId, rowMap) {
     const rowKey = this.props.events.ids[rowId];
     rowMap[`${secId}${rowId}`].closeRow();
+    ADManager.checkReady();
     Actions.add({rowKey, rowData})
   }
 
   renderHiddenItem(rowData, secId, rowId, rowMap) {
+    if (rowData.isAd) {
+      return null;
+    }
     return (
       <View style={styles.itemHidden}>
         <TouchableOpacity
@@ -167,6 +188,11 @@ class Home extends BindComponent {
           renderHiddenRow={(rowData, secId, rowId, rowMap) => this.renderHiddenItem(rowData, secId, rowId, rowMap)}
           rightOpenValue={-Constant.size.itemHeight*2}
           />
+        <AdMobBanner
+          bannerSize="smartBannerPortrait"
+          testDeviceID={ADManager.testDeviceID}
+          adUnitID={ADManager.keys.home}
+        />
       </View>
     );
   }

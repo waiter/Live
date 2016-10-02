@@ -55,7 +55,7 @@ class Edit extends BindComponent {
     const dispatch = this.props.dispatch;
     try {
       await DataHelper.saveDatasAsync(need);
-      dispatch(ReduxActions.eventRestData(Events.getCurrentDatas()));
+      dispatch(ReduxActions.eventRestData());
       this.needReset = true;
       Actions.pop();
     } catch (err) {
@@ -125,7 +125,6 @@ class Edit extends BindComponent {
             style={styles.textInput}
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}
-            autoFocus
             placeholder={Language.datas.placeholder}
             defaultValue={Language.datas.defaultTitle}
           />

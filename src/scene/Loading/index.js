@@ -12,6 +12,7 @@ import Events from '../../data/events';
 import ReduxActions from '../../redux/actions';
 import {Actions} from 'react-native-router-flux';
 import * as Progress from 'react-native-progress';
+import ADManager from '../../data/adManager';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,8 +42,9 @@ class Loading extends Component {
       const need = Events.initData(data);
       console.log(need);
       await DataHelper.saveDatasAsync(need);
+      ADManager.init();
       await ImageHelper._init();
-      dispatch(ReduxActions.eventInitDatas(Events.getCurrentDatas()));
+      dispatch(ReduxActions.eventRestData());
       dispatch(ReduxActions.startLoadingEnd());
       Actions.home();
     } catch (err) {

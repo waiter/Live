@@ -84,16 +84,22 @@ export default class Item extends BindComponent {
     const {rowData, onPress, showType} = this.props;
     const viewStyle = [styles.item, {borderLeftColor: this.color}];
     const itemRight = [styles.itemRight];
+    const contentView = [styles.contentView];
     if (this.words[showType][2]) {
       itemRight.push({
         borderRightWidth: 6,
         borderRightColor: this.color,
       });
+      contentView.push({
+        borderBottomColor: this.color,
+        borderTopWidth: 1,
+        borderTopColor: this.color,
+      });
     }
     return (
       <TouchableHighlight onPress={onPress}>
       <View style={viewStyle}>
-        <View style={styles.contentView}>
+        <View style={contentView}>
           <View style={styles.iconView}>
             <Icon name={Constant.iconWords[rowData.iconId || 0]} size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
           </View>

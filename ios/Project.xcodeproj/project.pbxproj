@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -30,11 +29,13 @@
 		894632DC6B3249B49E6EB470 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3F621A33AD643D5A33D63EA /* Ionicons.ttf */; };
 		A30B29C61D8D8B0900627B16 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A33B2E471D8BDC5300A90EC6 /* libRNVectorIcons.a */; };
 		A30CD8BF1DA0FA4200CBC808 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A30CD8C11DA0FA4200CBC808 /* InfoPlist.strings */; };
+		A30CD8D31DA10B4000CBC808 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A30CD8D21DA10B4000CBC808 /* GoogleMobileAds.framework */; };
 		A3F485FD1D9D62AA00901D2D /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3F485FB1D9D624200901D2D /* libRNDeviceInfo.a */; };
 		A3FEEFA81D9C223E001327C8 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3FEEF9C1D9C2218001327C8 /* libART.a */; };
 		B78E3DC138154ADFB8F0087D /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DA8437EFB3B40499E66B5CE /* MaterialIcons.ttf */; };
 		BEEE33BCBCBB497181F32AAE /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA0F607A38164EB38E00748D /* Entypo.ttf */; };
 		EBA04B9EF1084048823F1F18 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 415D4F3EE14E41049D658A42 /* Foundation.ttf */; };
+		5A301B8517F94425AD79833D /* libRNAdMobManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F4E045809A49AC95BC8E6B /* libRNAdMobManager.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -176,12 +177,15 @@
 		A30CD8C01DA0FA4200CBC808 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A30CD8C21DA0FA5900CBC808 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		A30CD8C31DA0FA6200CBC808 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A30CD8D21DA10B4000CBC808 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		A3FEEF971D9C2218001327C8 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		AC94960C7AC5421791097747 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		C8061FD5827440F4B4B38534 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		C8F6815539E94A348C14812A /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		F3F621A33AD643D5A33D63EA /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		FA0F607A38164EB38E00748D /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		1E857B4B23754FABB48B91A2 /* RNAdMobManager.xcodeproj */ = {isa = PBXFileReference; name = "RNAdMobManager.xcodeproj"; path = "../node_modules/react-native-admob/ios/RNAdMobManager.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		43F4E045809A49AC95BC8E6B /* libRNAdMobManager.a */ = {isa = PBXFileReference; name = "libRNAdMobManager.a"; path = "libRNAdMobManager.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,8 +213,10 @@
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
+				A30CD8D31DA10B4000CBC808 /* GoogleMobileAds.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				5C8EDA7C07CC40E78A07B699 /* libRNDeviceActivity.a in Frameworks */,
+				5A301B8517F94425AD79833D /* libRNAdMobManager.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +358,7 @@
 				C8061FD5827440F4B4B38534 /* RNVectorIcons.xcodeproj */,
 				AC94960C7AC5421791097747 /* RNDeviceInfo.xcodeproj */,
 				4A64DE6810D5410998B69150 /* RNDeviceActivity.xcodeproj */,
+				1E857B4B23754FABB48B91A2 /* RNAdMobManager.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -367,6 +374,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A30CD8E21DA10B5000CBC808 /* Framework */,
 				13B07FAE1A68108700A75B9A /* Project */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ProjectTests */,
@@ -384,6 +392,14 @@
 				00E356EE1AD99517003FC87E /* ProjectTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A30CD8E21DA10B5000CBC808 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				A30CD8D21DA10B4000CBC808 /* GoogleMobileAds.framework */,
+			);
+			name = Framework;
 			sourceTree = "<group>";
 		};
 		A33B2E391D8BDC4F00A90EC6 /* Products */ = {
@@ -758,6 +774,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -778,6 +795,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -792,6 +810,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 6MT5ECDK2B;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -799,6 +821,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/rn-device-activity/ios/RNDeviceActivity",
+					"$(SRCROOT)/../node_modules/react-native-admob/ios",
 				);
 				INFOPLIST_FILE = Project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -820,6 +843,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = 6MT5ECDK2B;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -827,6 +854,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/rn-device-activity/ios/RNDeviceActivity",
+					"$(SRCROOT)/../node_modules/react-native-admob/ios",
 				);
 				INFOPLIST_FILE = Project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -888,6 +916,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/rn-device-activity/ios/RNDeviceActivity",
+					"$(SRCROOT)/../node_modules/react-native-admob/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -935,6 +964,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/rn-device-activity/ios/RNDeviceActivity",
+					"$(SRCROOT)/../node_modules/react-native-admob/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
