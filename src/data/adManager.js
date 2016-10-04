@@ -7,6 +7,7 @@ const ad = {
   },
   // testDeviceID: '00fda71dc67fc13903cb9f0be47c0a35',
   testDeviceID: 'EMULATOR',
+  isNoAd: false,
   isReady: false,
   isChecking: false,
   init: function() {

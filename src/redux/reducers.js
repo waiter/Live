@@ -32,7 +32,7 @@ function events(state = {
       const da = Events.getCurrentDatas();
       const ids = Array.from(da.ids);
       const datas = Object.assign({}, da.datas);
-      if (ADManager.isReady) {
+      if (ADManager.isReady && !ADManager.isNoAd) {
         const vk = 'video';
         const vd = {
           isAd: true,

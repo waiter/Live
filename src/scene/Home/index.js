@@ -179,6 +179,13 @@ class Home extends BindComponent {
   }
 
   render() {
+    const adView = ADManager.isNoAd ? null : (
+      <AdMobBanner
+        bannerSize="smartBannerPortrait"
+        testDeviceID={ADManager.testDeviceID}
+        adUnitID={ADManager.keys.home}
+      />
+    );
     return (
       <View style={styles.container}>
         <SwipeListView
@@ -187,11 +194,7 @@ class Home extends BindComponent {
           renderHiddenRow={(rowData, secId, rowId, rowMap) => this.renderHiddenItem(rowData, secId, rowId, rowMap)}
           rightOpenValue={-Constant.size.itemHeight*2}
           />
-        <AdMobBanner
-          bannerSize="smartBannerPortrait"
-          testDeviceID={ADManager.testDeviceID}
-          adUnitID={ADManager.keys.home}
-        />
+        {adView}
       </View>
     );
   }
