@@ -31,6 +31,10 @@
 		A30CD96D1DA2A34E00CBC808 /* NativeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A30CD96C1DA2A34E00CBC808 /* NativeManager.m */; };
 		A30CD96E1DA2AD0900CBC808 /* libRNDeviceActivity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3E743A71DA0E90200FEEED2 /* libRNDeviceActivity.a */; };
 		A30CD96F1DA2AD1000CBC808 /* libRNAdMobManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A30CD9031DA16BFD00CBC808 /* libRNAdMobManager.a */; };
+		A30CD9711DA376F400CBC808 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A30CD9701DA376F400CBC808 /* UMMobClick.framework */; };
+		A30CD9731DA3770F00CBC808 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A30CD9721DA3770F00CBC808 /* CoreTelephony.framework */; };
+		A30CD9741DA3771800CBC808 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A30CD9601DA259E100CBC808 /* libz.tbd */; };
+		A30CD9751DA3772800CBC808 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A30CD9661DA25A1A00CBC808 /* libsqlite3.tbd */; };
 		A3F485FD1D9D62AA00901D2D /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3F485FB1D9D624200901D2D /* libRNDeviceInfo.a */; };
 		A3FEEFA81D9C223E001327C8 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3FEEF9C1D9C2218001327C8 /* libART.a */; };
 		B78E3DC138154ADFB8F0087D /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DA8437EFB3B40499E66B5CE /* MaterialIcons.ttf */; };
@@ -185,6 +189,8 @@
 		A30CD9681DA25A2300CBC808 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A30CD96B1DA2A33800CBC808 /* NativeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NativeManager.h; path = Project/NativeManager.h; sourceTree = "<group>"; };
 		A30CD96C1DA2A34E00CBC808 /* NativeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NativeManager.m; path = Project/NativeManager.m; sourceTree = "<group>"; };
+		A30CD9701DA376F400CBC808 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
+		A30CD9721DA3770F00CBC808 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		A3FEEF971D9C2218001327C8 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		AC94960C7AC5421791097747 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		C8061FD5827440F4B4B38534 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
@@ -198,6 +204,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A30CD9751DA3772800CBC808 /* libsqlite3.tbd in Frameworks */,
+				A30CD9741DA3771800CBC808 /* libz.tbd in Frameworks */,
+				A30CD9731DA3770F00CBC808 /* CoreTelephony.framework in Frameworks */,
 				A30CD96F1DA2AD1000CBC808 /* libRNAdMobManager.a in Frameworks */,
 				A30CD96E1DA2AD0900CBC808 /* libRNDeviceActivity.a in Frameworks */,
 				A3F485FD1D9D62AA00901D2D /* libRNDeviceInfo.a in Frameworks */,
@@ -212,6 +221,7 @@
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
+				A30CD9711DA376F400CBC808 /* UMMobClick.framework in Frameworks */,
 				A30CD8D31DA10B4000CBC808 /* GoogleMobileAds.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 			);
@@ -396,6 +406,7 @@
 		A30CD8E21DA10B5000CBC808 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				A30CD9701DA376F400CBC808 /* UMMobClick.framework */,
 				A30CD8D21DA10B4000CBC808 /* GoogleMobileAds.framework */,
 			);
 			name = Framework;
@@ -412,6 +423,7 @@
 		A30CD95D1DA259D300CBC808 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A30CD9721DA3770F00CBC808 /* CoreTelephony.framework */,
 				A30CD9681DA25A2300CBC808 /* MessageUI.framework */,
 				A30CD9661DA25A1A00CBC808 /* libsqlite3.tbd */,
 				A30CD9641DA259FD00CBC808 /* JavaScriptCore.framework */,

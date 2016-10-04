@@ -11,7 +11,7 @@
 
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
-
+#import "UMMobClick/MobClick.h"
 
 @implementation AppDelegate
 
@@ -33,6 +33,15 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  // umeng
+  UMConfigInstance.appKey = @"57f33eb167e58e5aae00201f";
+  UMConfigInstance.channelId = @"App Store";
+  
+  NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+  [MobClick setAppVersion:version];
+  
+  [MobClick startWithConfigure:UMConfigInstance];
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(share) name:@"shareApp" object:nil];
   return YES;
