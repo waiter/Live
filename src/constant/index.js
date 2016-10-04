@@ -15,9 +15,9 @@ export default {
       '#44722f',
       '#f0db3d',
       '#5aebaf',
-      '#ef5285',
-      '#f349eb',
-      '#6C49B8'
+      // '#ef5285',
+      // '#f349eb',
+      // '#6C49B8'
     ],
     edit: '#5dc3f5',
     delete: '#e20522'

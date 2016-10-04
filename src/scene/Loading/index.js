@@ -38,9 +38,9 @@ class Loading extends Component {
     try {
       const data = await DataHelper.getAllDataAsync();
       // data.dataIsOpened = 0;
-      console.log(data);
+      // console.log(data);
       const need = Events.initData(data);
-      console.log(need);
+      // console.log(need);
       await DataHelper.saveDatasAsync(need);
       ADManager.init();
       await ImageHelper._init();

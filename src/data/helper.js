@@ -41,7 +41,6 @@ export default {
     return function(fn) {
       const keys = Object.keys(kvs);
       const arr = keys.map(key => [key, kvs[key]]);
-      console.log(arr);
       AsyncStorage.multiSet(arr, errs => {
         if (errs && errs.length > 0) {
           fn(errs);

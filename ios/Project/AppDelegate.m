@@ -12,7 +12,9 @@
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
 
+
 @implementation AppDelegate
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -31,7 +33,13 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(share) name:@"shareApp" object:nil];
   return YES;
+}
+
+- (void) share{
+  NSLog(@"share  xxxx");
 }
 
 @end

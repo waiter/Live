@@ -91,7 +91,6 @@ class Home extends BindComponent {
   }
 
   componentWillMount () {
-    console.log('componentWillMount');
     Actions.refresh({
       rightButtonImage: ImageHelper.add,
       onRight: () => {ADManager.checkReady();Actions.add();},

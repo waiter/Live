@@ -13,6 +13,7 @@ import { Actions } from 'react-native-router-flux';
 import * as Progress from 'react-native-progress';
 import Page from '../../components/Page';
 import Util from '../../kit/util';
+import NativeManager from '../../kit/native';
 
 class Show extends Component {
   constructor(props) {
@@ -71,16 +72,20 @@ class Show extends Component {
           onPress={_ => Actions.pop()}>
           <Icon name="close" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.shareView}
-          activeOpacity={0.9}
-          onPress={_ => Actions.pop()}>
-          <Icon name="share" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
-        </TouchableOpacity>
+
       </View>
     );
   }
 }
+
+
+// <TouchableOpacity
+//   style={styles.shareView}
+//   activeOpacity={0.9}
+//   onPress={_ => NativeManager.share()}>
+//   <Icon name="share" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
+// </TouchableOpacity>
+
 
 const styles = StyleSheet.create({
   container: {
