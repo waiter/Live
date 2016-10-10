@@ -21,4 +21,7 @@ export default {
   adContent: '哦，就是個廣告啊...',
   adWord1: '要去掉它？',
   adWord2: '點！',
+  shareTitle: '十年',
+  shareText: '記錄您的紀念日',
+  shareUrl: 'https://itunes.apple.com/cn/app/10-years-remind-you-remember/id1155562994',
 };

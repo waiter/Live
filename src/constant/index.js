@@ -60,4 +60,9 @@ export default {
     "free-breakfast",
     "local-movies"
   ],
+  shareTypes: {
+    WechatSession: 22,
+    WechatTimeline: 23,
+    Facebook: 10,
+  },
 };

@@ -8,13 +8,28 @@
 
 #import "NativeManager.h"
 
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+#import <ShareSDKExtension/ShareSDK+Extension.h>
+#import <ShareSDKExtension/SSEShareHelper.h>
+
 @implementation NativeManager
 
 
-RCT_EXPORT_METHOD(share:(NSString *)name location:(NSString *)location)
+RCT_EXPORT_METHOD(share:(NSInteger *)type title:(NSString *)title text:(NSString *)text url:(NSString*) url)
 {
-  NSLog(@"Pretending to create an event %@ at %@", name, location);
-  [[NSNotificationCenter defaultCenter] postNotificationName:@"shareApp" object:nil];
+  [SSEShareHelper screenCaptureShare:^(SSDKImage *image, SSEShareHandler shareHandler) {
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKSetupShareParamsByText:text images:image url:[NSURL URLWithString:url] title:title type:SSDKContentTypeImage];
+    shareHandler(type, shareParams);
+  } onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+//    NSLog(@"%lu", (unsigned long)state);
+  }];
+}
+
+RCT_EXPORT_METHOD(isInstall:(NSInteger *)type callback:(RCTResponseSenderBlock)callback)
+{
+  callback(@[ [ShareSDK isClientInstalled:type] ? @1 : @0  ]);
 }
 
 RCT_EXPORT_MODULE();

@@ -21,4 +21,7 @@ export default {
   adContent: 'It\'s just an AD',
   adWord1: 'to remove this',
   adWord2: 'CLICK',
+  shareTitle: '10 YEARS',
+  shareText: 'Record your important days',
+  shareUrl: 'https://itunes.apple.com/us/app/10-years-remind-you-remember/id1155562994',
 };

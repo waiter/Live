@@ -9,20 +9,78 @@ import {
 import Carousel from 'react-native-carousel';
 import Constant from '../../constant';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
 import * as Progress from 'react-native-progress';
 import Page from '../../components/Page';
 import Util from '../../kit/util';
 import NativeManager from '../../kit/native';
+import BindComponent from '../../components/BindComponent';
 
-class Show extends Component {
+class Show extends BindComponent {
   constructor(props) {
-    super(props);
+    super(props, ['renderShare', 'share']);
     this.words = Util.makeWord(props.rowData);
+    this.state = {
+      showShare: false,
+    };
   }
 
   componentWillReceiveProps(newProps) {
     this.words = Util.makeWord(newProps.rowData);
+  }
+
+  share(type) {
+    this.setState({
+      showShare: false,
+    });
+    NativeManager.share(type);
+  }
+
+  renderShare() {
+    if (this.state.showShare) {
+      return (
+        <View style={styles.shareViewsOpen}>
+          <TouchableOpacity
+            style={styles.shareBtn}
+            activeOpacity={0.9}
+            onPress={_ => this.share(Constant.shareTypes.WechatSession)}
+          >
+            <IconFontAwesome name="weixin" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.shareBtn}
+            activeOpacity={0.9}
+            onPress={_ => this.share(Constant.shareTypes.WechatTimeline)}
+          >
+            <IconFontAwesome name="chrome" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.shareBtn}
+            activeOpacity={0.9}
+            onPress={_ => this.share(Constant.shareTypes.Facebook)}
+          >
+            <IconFontAwesome name="facebook" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.shareBtn}
+            activeOpacity={0.9}
+            onPress={_ => this.setState({showShare: false})}
+          >
+            <Icon name="close" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
+          </TouchableOpacity>
+        </View>
+      );
+    } else {
+      return (
+        <TouchableOpacity
+          style={styles.shareView}
+          activeOpacity={0.9}
+          onPress={_ => this.setState({showShare: true})}>
+          <Icon name="share" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
+        </TouchableOpacity>
+      );
+    }
   }
 
   render() {
@@ -72,19 +130,14 @@ class Show extends Component {
           onPress={_ => Actions.pop()}>
           <Icon name="close" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
         </TouchableOpacity>
-
+        {this.renderShare()}
       </View>
     );
   }
 }
 
 
-// <TouchableOpacity
-//   style={styles.shareView}
-//   activeOpacity={0.9}
-//   onPress={_ => NativeManager.share()}>
-//   <Icon name="share" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
-// </TouchableOpacity>
+
 
 
 const styles = StyleSheet.create({
@@ -122,6 +175,18 @@ const styles = StyleSheet.create({
     bottom: Constant.size.editHeight / 3,
     width: Constant.size.editHeight,
     height: Constant.size.editHeight,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  shareViewsOpen: {
+    position: 'absolute',
+    right: Constant.size.editHeight / 2,
+    bottom: Constant.size.editHeight / 3,
+    width: Constant.size.editHeight,
+    height: Constant.size.editHeight * 4,
+  },
+  shareBtn: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
