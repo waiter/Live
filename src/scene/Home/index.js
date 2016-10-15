@@ -35,7 +35,8 @@ const bindThing = [
   'resetEvents',
   'addTimer',
   'resumeCheck',
-  'onClickItem'
+  'onClickItem',
+  'onTopItem'
 ];
 
 class Home extends BindComponent {
@@ -153,7 +154,23 @@ class Home extends BindComponent {
     const rowKey = this.props.events.ids[rowId];
     rowMap[`${secId}${rowId}`].closeRow();
     ADManager.checkReady();
-    Actions.add({rowKey, rowData})
+    Actions.add({rowKey, rowData});
+  }
+
+  async onTopItem(rowData, secId, rowId, rowMap) {
+    try {
+      const rowKey = this.props.events.ids[rowId];
+      rowMap[`${secId}${rowId}`].closeRow();
+      const dispatch = this.props.dispatch;
+      const nd = Events.topData(rowKey);
+      if (!ADManager.isReady) {
+        ADManager.checkReady();
+      }
+      await DataHelper.saveDatasAsync(nd);
+      dispatch(ReduxActions.eventRestData());
+    } catch(e) {
+      console.log(e);
+    }
   }
 
   renderHiddenItem(rowData, secId, rowId, rowMap) {
@@ -162,6 +179,12 @@ class Home extends BindComponent {
     }
     return (
       <View style={styles.itemHidden}>
+        <TouchableOpacity
+          style={styles.upButton}
+          activeOpacity={0.9}
+          onPress={_ => this.onTopItem(rowData, secId, rowId, rowMap)}>
+          <Icon name="file-upload" size={Constant.size.topBarImg} color={Constant.colors.topBarImg} />
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.editButton}
           activeOpacity={0.9}
@@ -192,7 +215,7 @@ class Home extends BindComponent {
           dataSource={this.ds.cloneWithRows(this.state.dataSource)}
           renderRow={this.renderItem}
           renderHiddenRow={(rowData, secId, rowId, rowMap) => this.renderHiddenItem(rowData, secId, rowId, rowMap)}
-          rightOpenValue={-Constant.size.itemHeight*2}
+          rightOpenValue={-Constant.size.itemHeight*3}
           />
         {adView}
       </View>
@@ -226,6 +249,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  upButton: {
+    width: Constant.size.itemHeight,
+    height: Constant.size.itemHeight - 1,
+    backgroundColor: Constant.colors.toTop,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 export default connect(state => ({events: state.events}))(Home);

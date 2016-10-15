@@ -130,6 +130,14 @@ const datas = {
       })
     };
     return re;
+  },
+  topData: function(key) {
+    datas.ids = datas.ids.filter(it => it != key);
+    datas.ids.unshift(key);
+    const re = {
+      [Keys.DATA_EVENT_ID_LIST]: JSON.stringify(datas.ids)
+    };
+    return re;
   }
 };
 

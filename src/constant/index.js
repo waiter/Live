@@ -20,7 +20,8 @@ export default {
       // '#6C49B8'
     ],
     edit: '#5dc3f5',
-    delete: '#e20522'
+    delete: '#e20522',
+    toTop: '#a3a1a1',
   },
   size: {
     topBar: 64,

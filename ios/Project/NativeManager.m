@@ -20,7 +20,7 @@ RCT_EXPORT_METHOD(share:(NSInteger *)type title:(NSString *)title text:(NSString
 {
   [SSEShareHelper screenCaptureShare:^(SSDKImage *image, SSEShareHandler shareHandler) {
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:text images:image url:[NSURL URLWithString:url] title:title type:SSDKContentTypeImage];
+    [shareParams SSDKSetupShareParamsByText:@"" images:image url:[NSURL URLWithString:url] title:title type:SSDKContentTypeImage];
     shareHandler(type, shareParams);
   } onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
 //    NSLog(@"%lu", (unsigned long)state);
