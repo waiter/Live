@@ -41,7 +41,7 @@
   [self.window makeKeyAndVisible];
   
   // umeng
-  UMConfigInstance.appKey = @"57f33eb167e58e5aae00201f";
+  UMConfigInstance.appKey = @"58305aaf8f4a9d6345000304";
   UMConfigInstance.channelId = @"App Store";
   
   NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
