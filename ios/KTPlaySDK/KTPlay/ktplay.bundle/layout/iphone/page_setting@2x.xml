@@ -1,0 +1,1 @@
+<Page><Resources><StyleSheet/></Resources><Layout><UIView id="containerView"><UITableView bounds="320,320" id="settingTableView" mdoutlet="YES"><Constraints><Constraint attribute="edges" target="containerView"/></Constraints></UITableView></UIView></Layout></Page>

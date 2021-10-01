@@ -7,7 +7,7 @@
 //
 
 #import "NativeManager.h"
-
+#import "KTPlay.h"
 
 
 @implementation NativeManager
@@ -22,6 +22,19 @@ RCT_EXPORT_METHOD(isInstall:(NSInteger *)type callback:(RCTResponseSenderBlock)c
 {
   
 }
+
+RCT_EXPORT_METHOD(isKtplayEnable:(RCTResponseSenderBlock)callback)
+{
+  callback([KTPlay isEnabled] ? @[@1] : @[@0]);
+}
+
+RCT_EXPORT_METHOD(showKtplay:(NSInteger *)type)
+{
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [KTPlay show];
+  });
+}
+
 
 RCT_EXPORT_MODULE();
 

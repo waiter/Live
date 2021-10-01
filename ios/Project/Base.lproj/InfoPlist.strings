@@ -6,3 +6,4 @@
   Copyright © 2016年 Facebook. All rights reserved.
 */
 CFBundleDisplayName="10 YEARS";
+NSPhotoLibraryUsageDescription="Allows the apps to use your system to be thin for sharing pictures and video content to other users.";

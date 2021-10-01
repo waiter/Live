@@ -16,5 +16,11 @@ export default {
     return {
       type: ActionKeys.EVENT_RESET_DATA
     }
+  },
+  enableKtplay: function(isEnable) {
+    return {
+      type: ActionKeys.KTPLAY_SET_ENABLE,
+      enable: isEnable
+    }
   }
 };

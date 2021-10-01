@@ -6,11 +6,10 @@ import Loading from '../scene/Loading';
 import Edit from '../scene/Edit';
 import Show from '../scene/Show';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import reducers from '../redux/reducers';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Constant from '../constant';
 import Language from '../Language';
+import store from '../redux/store';
 
 const getSceneStyle = function (props, computedProps) {
   const style = {
@@ -22,11 +21,6 @@ const getSceneStyle = function (props, computedProps) {
   }
   return style;
 };
-
-const middleware = [/* ...your middleware (i.e. thunk) */];
-const store = compose(
-  applyMiddleware(...middleware)
-)(createStore)(reducers);
 
 class RouterComponent extends React.Component {
   constructor(props) {

@@ -24,6 +24,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Language from '../../Language';
 import { AdMobBanner} from 'react-native-admob';
 import ADManager from '../../data/adManager';
+import Native from '../../kit/native';
 
 const bindThing = [
   'renderItem',
@@ -209,6 +210,14 @@ class Home extends BindComponent {
         adUnitID={ADManager.keys.home}
       />
     );
+    const ktplay = this.props.ktplay ? (
+      <TouchableOpacity
+        style={styles.closeView}
+        activeOpacity={0.9}
+        onPress={Native.showKtplay}>
+        <Icon name="close" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
+      </TouchableOpacity>
+    ) : null;
     return (
       <View style={styles.container}>
         <SwipeListView
@@ -218,6 +227,7 @@ class Home extends BindComponent {
           rightOpenValue={-Constant.size.itemHeight*3}
           />
         {adView}
+        {ktplay}
       </View>
     );
   }
@@ -255,7 +265,16 @@ const styles = StyleSheet.create({
     backgroundColor: Constant.colors.toTop,
     justifyContent: 'center',
     alignItems: 'center'
-  }
+  },
+  closeView: {
+    position: 'absolute',
+    left: Constant.size.editHeight / 2,
+    bottom: Constant.size.editHeight / 3,
+    width: Constant.size.editHeight,
+    height: Constant.size.editHeight,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
-export default connect(state => ({events: state.events}))(Home);
+export default connect(state => ({events: state.events, ktplay: state.ktplay.enable}))(Home);

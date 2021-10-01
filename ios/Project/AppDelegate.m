@@ -11,10 +11,14 @@
 
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
+#import "RCTBridge.h"
+#import "RCTEventDispatcher.h"
 #import "UMMobClick/MobClick.h"
 
+#import "KTPlay.h"
 
 @implementation AppDelegate
+@synthesize bridge = _bridge;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -43,6 +47,14 @@
   [MobClick setAppVersion:version];
   
   [MobClick startWithConfigure:UMConfigInstance];
+  
+  [KTPlay startWithAppKey:@"Vvqcxld1n" appSecret:@"e8715672514bee1ab02794cb35f02c4423835ed6"];
+  
+  KTAvailabilityChangedBlock availabilityChangedBlock =  ^(BOOL isEnabled){
+    [self.bridge.eventDispatcher sendAppEventWithName:@"KTPLAY_ENABLE"
+                                                 body: isEnabled?@1:@0];
+  };
+  [KTPlay setAvailabilityChangedBlock: availabilityChangedBlock];
   
   return YES;
 }

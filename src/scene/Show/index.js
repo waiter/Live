@@ -7,6 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Carousel from 'react-native-carousel';
+import { connect } from 'react-redux';
 import Constant from '../../constant';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -85,6 +86,14 @@ class Show extends BindComponent {
 
   render() {
     const rowData = this.props.rowData;
+    const shareItem = this.props.ktplay ? (
+      <TouchableOpacity
+        style={styles.shareView}
+        activeOpacity={0.9}
+        onPress={_ => this.setState({showShare: true})}>
+        <Icon name="share" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
+      </TouchableOpacity>
+    ) : null;
     return (
       <View style={styles.container}>
         <Carousel
@@ -130,7 +139,7 @@ class Show extends BindComponent {
           onPress={_ => Actions.pop()}>
           <Icon name="close" size={Constant.size.topBarImg} color={Constant.colors.iconColor} />
         </TouchableOpacity>
-        {this.renderShare()}
+        {shareItem}
       </View>
     );
   }
@@ -192,4 +201,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Show;
+export default connect(state => ({ktplay: state.ktplay.enable}))(Show);

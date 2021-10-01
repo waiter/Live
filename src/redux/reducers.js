@@ -53,7 +53,21 @@ function events(state = {
   }
 }
 
+function ktplay(state = {
+  enable: false
+}, action = {}) {
+  switch (action.type) {
+    case ActionKeys.KTPLAY_SET_ENABLE:
+      return {
+        enable: action.enable,
+      };
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   loading,
   events,
+  ktplay,
 });

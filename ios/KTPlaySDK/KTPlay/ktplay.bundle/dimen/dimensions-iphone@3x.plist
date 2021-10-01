@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>window_titlebar_height</key>
+	<integer>46</integer>
+	<key>login_AgreeGuide_Width</key>
+	<integer>264</integer>
+	<key>topic_list_cell_bar_height</key>
+	<string>40</string>
+	<key>window_tabbar_height</key>
+	<integer>75</integer>
+	<key>topic_gamevideo_width</key>
+	<integer>250</integer>
+	<key>topic_gamevideo_height</key>
+	<integer>180</integer>
+	<key>topic_category_mid_icon_size</key>
+	<integer>36</integer>
+	<key>topic_card_element_space</key>
+	<integer>10</integer>
+	<key>topic_summary_cell_height</key>
+	<string>98</string>
+	<key>create_reply_blue_button_size</key>
+	<integer>68</integer>
+</dict>
+</plist>

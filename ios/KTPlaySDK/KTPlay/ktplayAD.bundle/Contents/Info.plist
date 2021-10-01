@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.ktplay.plugin.AdMobNative</string>
+	<key>CFBundleName</key>
+	<string>AdMobNative</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>KTPluginMainClassName</key>
+	<string>KTPluginAdMobNative</string>
+	<key>Category</key>
+	<string>Promote</string>
+	<key>Priority</key>
+	<integer>0</integer>
+	<key>AdIdentifier</key>
+	<dict>
+		<key>ad_content_action_zh</key>
+		<string>详情</string>
+		<key>ad_content_action_en</key>
+		<string>Detail</string>
+		<key>ad_install_action_zh</key>
+		<string>下载</string>
+		<key>ad_install_action_en</key>
+		<string>Download</string>
+		<key>ad_tip_zh</key>
+		<string>广告</string>
+		<key>ad_tip_en</key>
+		<string>AD</string>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>topic_cell_offset</key>
+	<integer>300</integer>
+	<key>window_titlebar_height</key>
+	<integer>40</integer>
+	<key>topic_gamevideo_width</key>
+	<integer>280</integer>
+	<key>topic_gamevideo_height</key>
+	<integer>200</integer>
+</dict>
+</plist>

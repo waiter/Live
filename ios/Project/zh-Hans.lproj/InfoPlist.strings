@@ -6,3 +6,4 @@
   Copyright © 2016年 Facebook. All rights reserved.
 */
 CFBundleDisplayName="十年";
+NSPhotoLibraryUsageDescription="允许十年使用您的系统相薄，用于分享图片和视频内容给其他用户。";
